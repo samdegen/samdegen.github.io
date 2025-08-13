@@ -234,18 +234,24 @@
   2025 Samuel Degen — Last updated August 2025
 </div>
 
-<button id="modeToggle">🌙 Dark Mode</button>
+<button id="modeToggle"></button>
 
 <script>
   const modeToggle = document.getElementById('modeToggle');
+
+  function updateModeToggleText() {
+    modeToggle.textContent = document.body.classList.contains('light-mode')
+      ? '🌙 Dark Mode'
+      : '☀️ Light Mode';
+  }
+
   modeToggle.addEventListener('click', () => {
     document.body.classList.toggle('light-mode');
-    if (document.body.classList.contains('light-mode')) {
-      modeToggle.textContent = '🌙 Dark Mode';
-    } else {
-      modeToggle.textContent = '☀️ Light Mode';
-    }
+    updateModeToggleText();
   });
+
+  // Set initial text based on current mode
+  updateModeToggleText();
 </script>
 
 </body>
