@@ -64,6 +64,9 @@
       padding: 2rem; /* equal padding on all sides */
       border-radius: 15px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      box-sizing: border-box; /* ensure padding is inside width */
+      max-width: min(900px, 95vw);
+      width: 100%;
     }
     .name-row { display: flex; align-items: center; justify-content: center; gap: 1.5rem; }
     .avatar { width: 220px; height: 220px; border-radius: 50%; background: #bdbdbd; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
@@ -75,23 +78,25 @@
     nav a {
       color: var(--nav-fg);
       background: var(--nav-bg);
-      border: 1px solid var(--nav-border);
+      /* Removed borders on pills */
+      border: none;
       text-decoration: none;
       font-weight: 600;
       padding: 0.45rem 0.9rem;
       border-radius: 999px;
       min-width: 100px;
       text-align: center;
-      transition: filter 0.25s ease, background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+      transition: filter 0.25s ease, background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     }
-    nav a:hover { filter: var(--nav-hover-filter); }
+    nav a:hover { filter: var(--nav-hover-filter); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 
     /* LAYOUT: only MAIN gets page side padding; header/footer span full width */
     main.page { padding-inline: 12px; }
 
     /* GALLERY — transform-based, seamless, center emphasis without crop */
     .carousel { position: relative; max-width: 1000px; margin: 2rem auto 0 auto; }
-    .viewport { overflow: hidden; }
+    .viewport { overflow: hidden; padding-bottom: 12px; } /* extra space so bottom shadow isn't clipped */
     .track {
       display: flex;
       align-items: center;
@@ -100,6 +105,7 @@
       transition: transform 520ms cubic-bezier(.22,.61,.36,1);
       transform: translateX(0);
     }
+    .no-anim { transition: none !important; }
     .slide {
       flex: 0 0 70%;
       position: relative;
@@ -120,6 +126,7 @@
     .carousel .nav-btn {
       position: absolute; top: 50%; transform: translateY(-50%);
       background: var(--control-bg); color: var(--control-fg);
+      /* keep borders on gallery arrows as-is to avoid changing unrelated elements */
       border: 1px solid var(--control-border);
       border-radius: 999px; padding: 0.4rem 0.7rem; cursor: pointer;
       display: grid; place-items: center; box-shadow: 0 3px 10px rgba(0,0,0,0.25);
@@ -147,17 +154,24 @@
     #modeToggle {
       position: fixed; bottom: 20px; right: 20px; z-index: 1000;
       font-family: inherit; background: var(--control-bg);
-      border: 1px solid var(--control-border);
+      /* Removed border on the dark/light toggle pill */
+      border: none;
       padding: 0.6rem 1rem; border-radius: 999px; color: var(--control-fg);
-      cursor: pointer; display: flex; align-items: center; gap: 6px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.25); backdrop-filter: saturate(120%);
+      cursor: pointer; display: flex; align-items: center; gap: 8px;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+      backdrop-filter: blur(6px) saturate(120%);
+      transition: transform .18s ease, box-shadow .25s ease, background .25s ease;
     }
+    #modeToggle:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,0.35); }
+    #modeToggle:active { transform: translateY(0); }
 
     /* MOBILE */
     @media (max-width: 600px) {
       header h1 { font-size: 1.8rem; }
       .name-row { flex-direction: column; }
-      .avatar { width: min(88vw, 340px); height: min(88vw, 340px); }
+      .avatar { width: min(72vw, 320px); height: min(72vw, 320px); }
+      .header-info { padding: 1.25rem; max-width: 92vw; }
       .slide { flex-basis: 88%; }
       section { margin: 1.25rem auto 0 auto; border-radius: 14px; }
     }
@@ -341,7 +355,6 @@
 
   function slideOffset(i){
     const s = slides[i];
-    const rect = s.getBoundingClientRect();
     // Offset relative to track's left: use offsetLeft (layout) not viewport
     const left = s.offsetLeft - (viewport.clientWidth - s.clientWidth)/2;
     return left;
@@ -351,16 +364,21 @@
     slides.forEach((el, k) => el.classList.toggle('active', k === i));
   }
 
-  function applyTransform(left, smooth = true){
-    if (!smooth) track.style.transition = 'none';
-    else track.style.transition = '';
-    track.style.transform = `translateX(${-left}px)`;
-  }
-
   function centerOn(i, smooth = true){
+    if(!smooth){
+      track.classList.add('no-anim');
+      slides.forEach(el => el.classList.add('no-anim'));
+    }
     const left = slideOffset(i);
-    applyTransform(left, smooth);
+    track.style.transform = `translateX(${-left}px)`;
     setActive(i);
+    if(!smooth){
+      // remove the no-anim flags on the next frame so there is no visible zoom/flicker
+      requestAnimationFrame(()=>{
+        track.classList.remove('no-anim');
+        slides.forEach(el => el.classList.remove('no-anim'));
+      });
+    }
   }
 
   function normalize(){
@@ -381,7 +399,6 @@
 
   // Initialize to show first image centered, last on the left
   window.addEventListener('load', () => {
-    // Force a layout before first transform for accurate offsets
     slides = Array.from(track.children);
     centerOn(index, false);
     startAuto();
