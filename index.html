@@ -44,6 +44,33 @@
       border-radius: 15px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
+    .name-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+    .avatar {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: #bdbdbd; /* placeholder gray */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+    }
+    .text-col {
+      text-align: center;
+    }
     nav {
       margin-top: 1rem;
       display: flex;
@@ -115,6 +142,7 @@
     }
     @media (max-width: 600px) {
       header h1 { font-size: 1.8rem; }
+      .avatar { width: 120px; height: 120px; }
     }
   </style>
 </head>
@@ -122,9 +150,16 @@
 
 <header>
   <div class="header-info">
-    <h1>Samuel Degen</h1>
-    <p><strong>PAB 2-429</strong><br><strong>Department of Physics</strong><br>UCLA, Los Angeles, CA 90024, USA</p>
-    <p>Email: <a href="mailto:degen@ucla.edu">degen@ucla.edu</a></p>
+    <div class="name-row">
+      <div class="avatar">
+        <img src="images/degen_headshot-min.JPG" alt="Samuel Degen headshot" onerror="this.style.display='none'">
+      </div>
+      <div class="text-col">
+        <h1>Samuel Degen</h1>
+        <p><strong>PAB 2-429</strong><br><strong>Department of Physics</strong><br>UCLA, Los Angeles, CA 90024, USA</p>
+        <p>Email: <a href="mailto:degen@ucla.edu">degen@ucla.edu</a></p>
+      </div>
+    </div>
   </div>
   <nav>
     <a href="#education">Education</a>
