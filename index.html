@@ -1,33 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Samuel Degen | Academic Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Computer+Modern+Serif&display=swap" rel="stylesheet">
+  <!-- Calibre webfont could be added with @font-face; using local Calibre/fallbacks for now -->
   <style>
+    /* THEME TOKENS */
     html { scroll-behavior: smooth; }
     :root {
       --bg-color: #3a3a3a;
       --text-color: #eaeaea;
-      --section-bg: rgba(0,0,0,0.3);
-      --button-bg-dark: #333;
+      --section-bg: #222222; /* dark card surface (solid) */
       --accent-gradient: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+      /* Header pills */
+      --nav-bg: #333333;
+      --nav-fg: #ffffff;
+      --nav-border: rgba(255,255,255,0.15);
+      --nav-hover-filter: brightness(1.2);
+      /* Controls (match card bg w/ 75% opacity request) */
+      --control-bg: rgba(34,34,34,0.75); /* same tone as --section-bg @ 75% */
+      --control-fg: var(--text-color);
+      --control-border: rgba(255,255,255,0.18);
     }
     body.light-mode {
-      --bg-color: white;
-      --text-color: #333;
-      --section-bg: rgba(255,255,255,0.8);
-      --button-bg-dark: rgba(255,255,255,0.8);
+      --bg-color: #ffffff;
+      --text-color: #333333;
+      --section-bg: #ffffff; /* pure white cards in light mode */
+      --accent-gradient: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+      /* Light mode pills: white + dark text */
+      --nav-bg: #ffffff;
+      --nav-fg: #111111;
+      --nav-border: rgba(0,0,0,0.10);
+      /* Toggle matches card bg at 75% opacity */
+      --control-bg: rgba(255,255,255,0.75);
+      --control-fg: #111111;
+      --control-border: rgba(0,0,0,0.12);
     }
+
+    /* TYPOGRAPHY */
     body {
-      font-family: 'Computer Modern Serif', serif;
+      font-family: 'Calibre', 'Calibri', 'Helvetica Neue', Helvetica, Arial, system-ui, -apple-system, Segoe UI, sans-serif;
       margin: 0;
       background: var(--bg-color);
       color: var(--text-color);
       line-height: 1.6;
       transition: background 0.3s, color 0.3s;
     }
+
+    /* HEADER (no page side padding here) */
     header {
       background: var(--accent-gradient);
       padding: 2rem 1rem;
@@ -40,124 +61,122 @@
     .header-info {
       background: rgba(255,255,255,0.6);
       display: inline-block;
-      padding: 1.5rem 3rem;
+      padding: 2rem; /* equal padding on all sides */
       border-radius: 15px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
-    .name-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1.5rem;
-    }
-    .avatar {
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      background: #bdbdbd; /* placeholder gray */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      flex-shrink: 0;
-    }
-    .avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-      display: block;
-    }
-    .text-col {
-      text-align: center;
-    }
-    nav {
-      margin-top: 1rem;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-    }
+    .name-row { display: flex; align-items: center; justify-content: center; gap: 1.5rem; }
+    .avatar { width: 220px; height: 220px; border-radius: 50%; background: #bdbdbd; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
+    .text-col { text-align: center; }
+
+    /* NAV (header pills) */
+    nav { margin-top: 1rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
     nav a {
-      color: white;
+      color: var(--nav-fg);
+      background: var(--nav-bg);
+      border: 1px solid var(--nav-border);
       text-decoration: none;
-      font-weight: bold;
-      background: var(--button-bg-dark);
-      padding: 0.4rem 0.8rem;
-      border-radius: 8px;
+      font-weight: 600;
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
       min-width: 100px;
       text-align: center;
-      transition: background 0.3s;
+      transition: filter 0.25s ease, background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
     }
-    body.light-mode nav a { color: #333; }
-    nav a:hover { filter: brightness(1.2); }
-    #modeToggle {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      font-family: 'Computer Modern Serif', serif;
-      background: var(--section-bg);
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      color: var(--text-color);
-      cursor: pointer;
+    nav a:hover { filter: var(--nav-hover-filter); }
+
+    /* LAYOUT: only MAIN gets page side padding; header/footer span full width */
+    main.page { padding-inline: 12px; }
+
+    /* GALLERY — transform-based, seamless, center emphasis without crop */
+    .carousel { position: relative; max-width: 1000px; margin: 2rem auto 0 auto; }
+    .viewport { overflow: hidden; }
+    .track {
       display: flex;
       align-items: center;
-      gap: 5px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      gap: 14px;
+      will-change: transform;
+      transition: transform 520ms cubic-bezier(.22,.61,.36,1);
+      transform: translateX(0);
     }
-    section {
-      max-width: 900px;
-      margin: auto;
-      padding: 2rem 1rem;
-      background: var(--section-bg);
-      margin-top: 2rem;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    .slide {
+      flex: 0 0 70%;
+      position: relative;
+      border-radius: 16px;
+      background: var(--section-bg); /* match card bg as fallback */
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      transform-origin: center;
+      transform: scale(0.88); /* side slides slightly smaller */
+      transition: transform 460ms cubic-bezier(.22,.61,.36,1);
+      display: grid; place-items: center; /* perfectly center content */
     }
-    h2 {
-      border-bottom: 3px solid transparent;
-      border-image: var(--accent-gradient) 1;
-      padding-bottom: 0.5rem;
-      margin-top: 0;
+    .slide img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
+    .slide.active { transform: scale(1.00); } /* active full size, no crop */
+
+    /* Gallery nav buttons — match card bg (75% opacity via token) */
+    .carousel .nav-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: var(--control-bg); color: var(--control-fg);
+      border: 1px solid var(--control-border);
+      border-radius: 999px; padding: 0.4rem 0.7rem; cursor: pointer;
+      display: grid; place-items: center; box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+      user-select: none; backdrop-filter: saturate(120%);
     }
-    ul { padding-left: 1.2rem; }
-    ul li strong { font-weight: bold; }
-    details { margin-bottom: 1rem; }
-    summary {
-      cursor: pointer;
-      font-weight: bold;
-      color: var(--text-color);
-    }
+    .carousel .nav-btn.left { left: 8px; }
+    .carousel .nav-btn.right { right: 8px; }
+
+    /* SECTION CARDS */
+    section { max-width: 900px; margin: 2rem auto 0 auto; padding: 1.5rem; background: var(--section-bg); border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+    h2 { border-bottom: 3px solid transparent; border-image: var(--accent-gradient) 1; padding-bottom: 0.5rem; margin-top: 0; }
+    ul { padding-left: 1.2rem; } ul li strong { font-weight: 700; }
+    details { margin-bottom: 1rem; } summary { cursor: pointer; font-weight: 700; color: var(--text-color); }
+
+    /* FOOTER */
     .footer {
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.9rem;
-      background: var(--accent-gradient);
-      color: #000000;
-      margin-top: 2rem;
-      border-top-left-radius: 20px;
-      border-top-right-radius: 20px;
+      text-align: center; padding: 1.1rem 1rem; font-size: 0.98rem;
+      background: var(--accent-gradient); color: #0b0b0b; margin-top: 2rem;
+      border-top-left-radius: 20px; border-top-right-radius: 20px;
+      font-weight: 600; letter-spacing: .3px;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.25);
     }
+
+    /* MODE TOGGLE: fixed bottom-right; matches card bg at 75% opacity */
+    #modeToggle {
+      position: fixed; bottom: 20px; right: 20px; z-index: 1000;
+      font-family: inherit; background: var(--control-bg);
+      border: 1px solid var(--control-border);
+      padding: 0.6rem 1rem; border-radius: 999px; color: var(--control-fg);
+      cursor: pointer; display: flex; align-items: center; gap: 6px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25); backdrop-filter: saturate(120%);
+    }
+
+    /* MOBILE */
     @media (max-width: 600px) {
       header h1 { font-size: 1.8rem; }
-      .avatar { width: 120px; height: 120px; }
+      .name-row { flex-direction: column; }
+      .avatar { width: min(88vw, 340px); height: min(88vw, 340px); }
+      .slide { flex-basis: 88%; }
+      section { margin: 1.25rem auto 0 auto; border-radius: 14px; }
     }
   </style>
 </head>
-<body>
+<body class="light-mode"><!-- light mode default -->
 
 <header>
   <div class="header-info">
     <div class="name-row">
-      <div class="avatar">
-        <img src="images/degen_headshot-min.JPG" alt="Samuel Degen headshot" onerror="this.style.display='none'">
+      <div class="avatar" aria-label="Headshot placeholder">
+        <img src="images/degen_headshot-min.JPG" alt="Samuel Degen headshot" onerror="this.style.display='none'" />
       </div>
       <div class="text-col">
         <h1>Samuel Degen</h1>
         <p><strong>PAB 2-429</strong><br><strong>Department of Physics</strong><br>UCLA, Los Angeles, CA 90024, USA</p>
-        <p>Email: <a href="mailto:degen@ucla.edu">degen@ucla.edu</a></p>
+        <p><strong>Email:</strong> <a href="mailto:degen@ucla.edu">degen@ucla.edu</a><br>
+           <a href="https://linkedin.com/in/samuel-degen" target="_blank" rel="noopener">linkedin.com/in/samuel-degen</a>
+        </p>
       </div>
     </div>
   </div>
@@ -171,122 +190,221 @@
   </nav>
 </header>
 
-<section id="education">
-  <h2>Education</h2>
-  <ul>
-    <li><strong>University of California, Los Angeles (UCLA)</strong>
-      <ul>
-        <li>B.S. Physics & Mathematics (2023 – Present)</li>
-        <li>GPA: 3.984 overall; 4.0 major</li>
-      </ul>
-    </li>
-    <li><strong>University of Colorado Boulder</strong>
-      <ul>
-        <li>High School Concurrent Enrollment (2021 – 2023)</li>
-        <li>GPA: 4.0 overall</li>
-      </ul>
-    </li>
-  </ul>
-</section>
+<main class="page">
+  <!-- GALLERY ABOVE EDUCATION -->
+  <div class="carousel" aria-label="Image gallery">
+    <div class="viewport" id="carouselViewport">
+      <div class="track" id="carouselTrack">
+        <!-- Initial single set; JS will triplicate for seamless loop -->
+        <div class="slide"><img src="images/gallery-1.jpg" alt="Gallery image 1" loading="lazy" onerror="this.style.display='none'" /></div>
+        <div class="slide"><img src="images/gallery-2.jpg" alt="Gallery image 2" loading="lazy" onerror="this.style.display='none'" /></div>
+        <div class="slide"><img src="images/gallery-3.jpg" alt="Gallery image 3" loading="lazy" onerror="this.style.display='none'" /></div>
+        <div class="slide"><img src="images/gallery-4.jpg" alt="Gallery image 4" loading="lazy" onerror="this.style.display='none'" /></div>
+      </div>
+    </div>
+    <button class="nav-btn left" id="prevBtn" aria-label="Previous image">‹</button>
+    <button class="nav-btn right" id="nextBtn" aria-label="Next image">›</button>
+  </div>
 
-<section id="honors">
-  <h2>Honors & Awards</h2>
-  <h3>2025</h3>
-  <ul>
-    <li><strong>Mani L. Bhaumik Institute for Theoretical Physics Summer Research Fellowship</strong> — First undergraduate offered a summer research fellowship at UCLA’s Bhaumik Institute for Theoretical Physics (August 2025)</li>
-    <li><strong>University of Tokyo Research Internship Program (UTRIP)</strong> — 1 of 14 selected from 1,149 applicants for in-person, fully funded program; <strong>FUTI Global Leadership Award</strong> recipient (June 2025)</li>
-    <li><strong>Perimeter Institute’s PSI START Satellite Program</strong> — 1 of 3 international students selected for in-person, fully funded 2-week program in Quebec (May 2025)</li>
-  </ul>
-  <h3>2024</h3>
-  <ul>
-    <li><strong>UCLA Summer Undergraduate Research Fellowship</strong> — 1 of 2 first-year undergraduates selected for competitive paid 10-week fellowship (Summer 2024)</li>
-  </ul>
-</section>
+  <section id="education">
+    <h2>Education</h2>
+    <ul>
+      <li><strong>University of California, Los Angeles (UCLA)</strong>
+        <ul>
+          <li>B.S. Physics &amp; Mathematics (2023 – Present)</li>
+          <li>GPA: 3.984 overall; 4.0 major</li>
+        </ul>
+      </li>
+      <li><strong>University of Colorado Boulder</strong>
+        <ul>
+          <li>High School Concurrent Enrollment (2021 – 2023)</li>
+          <li>GPA: 4.0 overall</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
 
-<section id="research">
-  <h2>Research Experience</h2>
-  <details>
-    <summary><strong>University of Tokyo — H. Liang Nuclear Theory Group</strong> (2025–Present)</summary>
-    <p>How humans can make a safe and efficient use of nuclei – such as through fission and fusion processes – is a difficult question, requiring a deep microscopic understanding of quantum many-body theories. The treatment of long-lived fission products by nuclear power plants depends strongly on the specifics of quantum many-body tunneling, a long-standing problem that requires a first principles (ab initio) theory of properties of nuclei. While there are many established microscopic nuclear theories, the only approach applicable to almost the whole nuclear chart is Density Functional Theory (DFT). Our work uses modern theoretical tools such as Effective Field Theory (EFT) and Renormalization Group (RG) Flow to construct such an ab initio nuclear DFT.</p>
-    <p><em>Supported by UTRIP 2025 and FUTI Global Leadership Award.</em></p>
-  </details>
-  <details>
-    <summary><strong>UCLA — Z. Bern & M. Solon Scattering Amplitudes Group</strong> (2025–Present)</summary>
-    <p>Research in scattering amplitudes with Z. Bern & M. Solon. Project TBD.</p>
-    <p><em>Supported by Mani L. Bhaumik Institute for Theoretical Physics Summer 2025 Research Fellowship.</em></p>
-  </details>
-  <details>
-    <summary><strong>UCLA — E. Paulo Alves Plasma Theory Group</strong> (2024–2025)</summary>
-    <p>Developed novel ML-based methods for studying time-dependent particle acceleration in relativistic astrophysical jets. My work resolves longstanding limitations of standard models by combining analytic theory and machine learning to uniquely solve ill-posed problems for the first time. Demonstrated that simple energy-dependent models are insufficient to explain the observed nonthermal particle spectrum and that these novel ML methods can be generalized to solve a large class of ill-posed problems—uniquely identifying physical solutions from an infinite family of solutions that perfectly reconstruct the data. Presented results at an international plasma physics conference, where my contributed oral talk initiated discussions toward new collaborations and research directions.</p>
-    <p><em>Supported by UCLA Physics Summer 2024 Research Fellowship.</em></p>
-  </details>
-  <details>
-    <summary><strong>UCLA — B.C. Regan Condensed Matter Group</strong> (2024)</summary>
-    <p>Pedagogical contributions in proving the Feynman Checkerboard at a level suitable for undergraduates, illuminating an accessible way to teach propagators.</p>
-  </details>
-</section>
+  <section id="honors">
+    <h2>Honors &amp; Awards</h2>
+    <h3>2025</h3>
+    <ul>
+      <li><strong>Mani L. Bhaumik Institute for Theoretical Physics Summer Research Fellowship</strong> — First undergraduate offered a summer research fellowship at UCLA’s Bhaumik Institute for Theoretical Physics (August 2025)</li>
+      <li><strong>University of Tokyo Research Internship Program (UTRIP)</strong> — 1 of 14 selected from 1,149 applicants for in-person, fully funded program; <strong>FUTI Global Leadership Award</strong> recipient (June 2025)</li>
+      <li><strong>Perimeter Institute’s PSI START Satellite Program</strong> — 1 of 3 international students selected for in-person, fully funded 2-week program in Quebec (May 2025)</li>
+    </ul>
+    <h3>2024</h3>
+    <ul>
+      <li><strong>UCLA Summer Undergraduate Research Fellowship</strong> — 1 of 2 first-year undergraduates selected for competitive paid 10-week fellowship (Summer 2024)</li>
+    </ul>
+  </section>
 
-<section id="talks">
-  <h2>Selected Talks & Presentations</h2>
-  <ul>
-    <li>“<strong>Benchmarking FRG-DFT with the One-Dimensional Fermi Gas – Towards a Nonperturbative Many-Body Nuclear Theory</strong>”
-      <ul>
-        <li>UTRIP Final Presentation, The University of Tokyo, Tokyo, Japan (August 5, 2025)</li>
-      </ul>
-    </li>
-    <li>“<strong>Data-driven statistical model of nonthermal particle acceleration by the kink instability in relativistic jets</strong>”
-      <ul>
-        <li>APS Division of Plasma Physics, Atlanta, Georgia (October 9, 2024)</li>
-      </ul>
-    </li>
-    <li>“<strong>From Finite Groups to Lie Algebras: Symmetries and Representations in Physics</strong>”
-      <ul>
-        <li>Perimeter Institute PSI START Program, Bishop’s University, Sherbrooke, Quebec, Canada (May 29, 2025)</li>
-      </ul>
-    </li>
-  </ul>
-</section>
+  <section id="research">
+    <h2>Research Experience</h2>
+    <details>
+      <summary><strong>University of Tokyo — H. Liang Nuclear Theory Group</strong> (2025–Present)</summary>
+      <p>How humans can make a safe and efficient use of nuclei – such as through fission and fusion processes – is a difficult question, requiring a deep microscopic understanding of quantum many-body theories. The treatment of long-lived fission products by nuclear power plants depends strongly on the specifics of quantum many-body tunneling, a long-standing problem that requires a first principles (ab initio) theory of properties of nuclei. While there are many established microscopic nuclear theories, the only approach applicable to almost the whole nuclear chart is Density Functional Theory (DFT). Our work uses modern theoretical tools such as Effective Field Theory (EFT) and Renormalization Group (RG) Flow to construct such an ab initio nuclear DFT.</p>
+      <p><em>Supported by UTRIP 2025 and FUTI Global Leadership Award.</em></p>
+    </details>
+    <details>
+      <summary><strong>UCLA — Z. Bern &amp; M. Solon Scattering Amplitudes Group</strong> (2025–Present)</summary>
+      <p>Research in scattering amplitudes with Z. Bern &amp; M. Solon. Project TBD.</p>
+      <p><em>Supported by Mani L. Bhaumik Institute for Theoretical Physics Summer 2025 Research Fellowship.</em></p>
+    </details>
+    <details>
+      <summary><strong>UCLA — E. Paulo Alves Plasma Theory Group</strong> (2024–2025)</summary>
+      <p>Developed novel ML-based methods for studying time-dependent particle acceleration in relativistic astrophysical jets. My work resolves longstanding limitations of standard models by combining analytic theory and machine learning to uniquely solve ill-posed problems for the first time. Demonstrated that simple energy-dependent models are insufficient to explain the observed nonthermal particle spectrum and that these novel ML methods can be generalized to solve a large class of ill-posed problems—uniquely identifying physical solutions from an infinite family of solutions that perfectly reconstruct the data. Presented results at an international plasma physics conference, where my contributed oral talk initiated discussions toward new collaborations and research directions.</p>
+      <p><em>Supported by UCLA Physics Summer 2024 Research Fellowship.</em></p>
+    </details>
+    <details>
+      <summary><strong>UCLA — B.C. Regan Condensed Matter Group</strong> (2024)</summary>
+      <p>Pedagogical contributions in proving the Feynman Checkerboard at a level suitable for undergraduates, illuminating an accessible way to teach propagators.</p>
+    </details>
+  </section>
 
-<section id="meetings">
-  <h2>Meetings Attended</h2>
-  <ul>
-    <li><strong>California Amplitudes Meeting 2025 (LA)</strong> — Mani L. Bhaumik Institute for Theoretical Physics, UCLA (November 2025)</li>
-    <li><strong>California Amplitudes Meeting 2025 (Davis)</strong> — Center for Quantum Mathematics and Physics (QMAP), UC Davis (May 2025)</li>
-    <li><strong>66th Annual Meeting of the APS Division of Plasma Physics</strong> — Atlanta, Georgia (October 2024)</li>
-  </ul>
-</section>
+  <section id="talks">
+    <h2>Selected Talks &amp; Presentations</h2>
+    <ul>
+      <li>“<strong>Benchmarking FRG-DFT with the One-Dimensional Fermi Gas – Towards a Nonperturbative Many-Body Nuclear Theory</strong>”
+        <ul>
+          <li>UTRIP Final Presentation, The University of Tokyo, Tokyo, Japan (August 5, 2025)</li>
+        </ul>
+      </li>
+      <li>“<strong>Data-driven statistical model of nonthermal particle acceleration by the kink instability in relativistic jets</strong>”
+        <ul>
+          <li>APS Division of Plasma Physics, Atlanta, Georgia (October 9, 2024)</li>
+        </ul>
+      </li>
+      <li>“<strong>From Finite Groups to Lie Algebras: Symmetries and Representations in Physics</strong>”
+        <ul>
+          <li>Perimeter Institute PSI START Program, Bishop’s University, Sherbrooke, Quebec, Canada (May 29, 2025)</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
 
-<section id="service">
-  <h2>Service & Outreach</h2>
-  <ul>
-    <li><strong>Professional Events Chair</strong>, Society of Physics Students, UCLA — Organized faculty/student talks, developed resources for research and course planning</li>
-    <li><strong>Teaching Assistant</strong>, UCLA Physics — Only undergraduate TA in department</li>
-    <li><strong>Member</strong>, Amplitudes Journal Club, String Theory Journal Club, Plasma Theory Journal Club</li>
-  </ul>
-</section>
+  <section id="meetings">
+    <h2>Meetings Attended</h2>
+    <ul>
+      <li><strong>California Amplitudes Meeting 2025 (LA)</strong> — Mani L. Bhaumik Institute for Theoretical Physics, UCLA (November 2025)</li>
+      <li><strong>California Amplitudes Meeting 2025 (Davis)</strong> — Center for Quantum Mathematics and Physics (QMAP), UC Davis (May 2025)</li>
+      <li><strong>66th Annual Meeting of the APS Division of Plasma Physics</strong> — Atlanta, Georgia (October 2024)</li>
+    </ul>
+  </section>
 
-<div class="footer">
-  2025 Samuel Degen — Last updated August 2025
-</div>
+  <section id="service">
+    <h2>Service &amp; Outreach</h2>
+    <ul>
+      <li><strong>Professional Events Chair</strong>, Society of Physics Students, UCLA — Organized faculty/student talks, developed resources for research and course planning</li>
+      <li><strong>Teaching Assistant</strong>, UCLA Physics — Only undergraduate TA in department</li>
+      <li><strong>Member</strong>, Amplitudes Journal Club, String Theory Journal Club, Plasma Theory Journal Club</li>
+    </ul>
+  </section>
+</main>
 
-<button id="modeToggle"></button>
+<div class="footer">© 2025 Samuel Degen — Last updated August 2025</div>
+
+<button id="modeToggle" aria-label="Toggle dark/light mode"></button>
 
 <script>
+  // Dark/Light mode toggle
   const modeToggle = document.getElementById('modeToggle');
-
   function updateModeToggleText() {
     modeToggle.textContent = document.body.classList.contains('light-mode')
       ? '🌙 Dark Mode'
       : '☀️ Light Mode';
   }
-
   modeToggle.addEventListener('click', () => {
     document.body.classList.toggle('light-mode');
     updateModeToggleText();
   });
+  updateModeToggleText(); // default is light mode via body class
 
-  // Set initial text based on current mode
-  updateModeToggleText();
+  // === Transform-based seamless carousel ===
+  const viewport = document.getElementById('carouselViewport');
+  const track = document.getElementById('carouselTrack');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  // Build triplicate slides for seamless wrap
+  const original = Array.from(track.children);
+  const N = original.length;
+  const fragLeft = document.createDocumentFragment();
+  const fragRight = document.createDocumentFragment();
+  original.forEach(s => fragLeft.appendChild(s.cloneNode(true)));
+  original.forEach(s => fragRight.appendChild(s.cloneNode(true)));
+  track.insertBefore(fragLeft, track.firstChild);
+  track.appendChild(fragRight);
+
+  let slides = Array.from(track.children);
+  let index = N; // Start at first of the middle block => last image appears on the left, first is centered
+  let autoTimer;
+
+  function slideOffset(i){
+    const s = slides[i];
+    const rect = s.getBoundingClientRect();
+    // Offset relative to track's left: use offsetLeft (layout) not viewport
+    const left = s.offsetLeft - (viewport.clientWidth - s.clientWidth)/2;
+    return left;
+  }
+
+  function setActive(i){
+    slides.forEach((el, k) => el.classList.toggle('active', k === i));
+  }
+
+  function applyTransform(left, smooth = true){
+    if (!smooth) track.style.transition = 'none';
+    else track.style.transition = '';
+    track.style.transform = `translateX(${-left}px)`;
+  }
+
+  function centerOn(i, smooth = true){
+    const left = slideOffset(i);
+    applyTransform(left, smooth);
+    setActive(i);
+  }
+
+  function normalize(){
+    // Keep index within the middle block to avoid large numbers; do it with no transition so it is invisible
+    if (index >= 2*N){
+      index -= N;
+      centerOn(index, false);
+    } else if (index < N){
+      index += N;
+      centerOn(index, false);
+    }
+  }
+
+  function go(delta){ index += delta; centerOn(index, true); }
+
+  function startAuto(){ stopAuto(); autoTimer = setInterval(()=> go(1), 5000); }
+  function stopAuto(){ if (autoTimer) clearInterval(autoTimer); }
+
+  // Initialize to show first image centered, last on the left
+  window.addEventListener('load', () => {
+    // Force a layout before first transform for accurate offsets
+    slides = Array.from(track.children);
+    centerOn(index, false);
+    startAuto();
+  });
+
+  // After each transition, normalize index to the middle block to ensure truly seamless loop
+  track.addEventListener('transitionend', normalize);
+
+  // Controls
+  prevBtn.addEventListener('click', () => { stopAuto(); go(-1); });
+  nextBtn.addEventListener('click', () => { stopAuto(); go(1); });
+  // Resume auto after user interaction ends
+  ['click','keyup'].forEach(evt=>document.addEventListener(evt, ()=> startAuto(), { once:true }));
+
+  // Touch swipe handling
+  let sx=0, sy=0, st=0;
+  viewport.addEventListener('touchstart', e=>{ if(!e.touches[0]) return; sx=e.touches[0].clientX; sy=e.touches[0].clientY; st=Date.now(); stopAuto(); }, {passive:true});
+  viewport.addEventListener('touchend', e=>{
+    const dx=(e.changedTouches[0]?.clientX||0)-sx; const dy=(e.changedTouches[0]?.clientY||0)-sy; const dt=Date.now()-st;
+    const horiz = Math.abs(dx)>Math.abs(dy) && Math.abs(dx)>30 && dt<600;
+    if(horiz){ go(dx<0?1:-1); }
+    startAuto();
+  }, {passive:true});
 </script>
 
 </body>
