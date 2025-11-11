@@ -180,12 +180,12 @@
       font-style: italic;     /* automatically italicizes */
       font-weight: 500;      /* optional: gives a bit more presence */
     }
-    .date::before {
+    /* .date::before {
       content: "[";
     }
     .date::after {
       content: "]";
-    }
+    } */
 
     .planned {
       color: #B088FF;         /* bright sky blue – readable on both light/dark */
@@ -198,6 +198,47 @@
     .planned::after {
       content: "]";
     }
+
+    /* RIGHT-JUSTIFIED DATE COLUMN (sub-bullets with open circles, global spacing alignment) */
+    .talks-sublist {
+      list-style-type: circle;        /* open-circle bullets */
+      padding-left: 1.2rem;           /* same indent as other nested lists */
+      margin-top: .25rem;             /* same as ul>li>ul */
+    }
+
+    .talks-sublist > li {
+      margin-bottom: .25rem;          /* gives subtle breathing room like global style */
+      line-height: 1.45;              /* restore natural nested list rhythm */
+    }
+
+    /* Maintain bullet; grid handles text and date alignment */
+    .talks-sublist > li > .row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) max-content;  /* text | date */
+      column-gap: 0.9rem;             /* close to your global visual spacing */
+      align-items: baseline;          /* date aligns with top line of text */
+    }
+
+    .talks-sublist .item-text {
+      min-width: 0;                   /* allow wrapping naturally */
+      margin: 0;
+    }
+
+    .talks-sublist .date {
+      white-space: nowrap;            /* keep on one line */
+      text-align: right;              /* right column alignment */
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    /* Planned dates (same style rules as before) */
+    .talks-sublist .planned {
+      color: #B088FF;
+      font-style: italic;
+      font-weight: 500;
+    }
+    .talks-sublist .planned::before { content: "[planned "; }
+    .talks-sublist .planned::after  { content: "]"; }
 
     /* FOOTER */
     .footer { text-align: center; padding: 1.1rem 1rem; font-size: 0.98rem; background: var(--accent-gradient); color: #0b0b0b; margin-top: var(--stack-gap); border-top-left-radius: 20px; border-top-right-radius: 20px; font-weight: 600; letter-spacing: .3px; text-shadow: 0 1px 0 rgba(255,255,255,0.25); }
@@ -218,6 +259,14 @@
       .btn-row { justify-content: center; }
       .slide { flex-basis: 88%; height: clamp(220px, 56vw, 440px); }
       section { margin: 1.25rem auto 0 auto; border-radius: 14px; }
+
+      .talks-sublist > li > .row {
+        column-gap: .6rem;
+        grid-template-columns: minmax(0, 1fr) max-content; /* still two columns */
+      }
+      .talks-sublist .date {
+        font-size: 0.95em;           /* optional: slightly smaller for fit */
+      }
     }
   </style>
 </head>
@@ -343,37 +392,78 @@
     </details>
   </section>
 
+
+  
   <section id="talks">
-    <h2>Selected Talks &amp; Presentations</h2>
-    <ul>
-      <li>“<strong>Effects of Black Hole Environments on Gravitational Wave Signals</strong>”
-        <ul>
-          <li>California Amplitudes Meeting 2025 (LA), UCLA <span class="date">November 8, 2025</span></li>
-        </ul>
-      </li>
-      <li>“<strong>Physics Without Borders: Nuclear Theory and Global Perspectives from a Summer in Tokyo</strong>”
-        <ul>
-          <li><span style="color: rgb(25, 181, 46);">(invited)</span> Research Experiences for Undergraduates (REU) Special Seminar, UCLA <span class="date">August 15, 2025</span></li>
-        </ul>
-      </li>
-      <li>“<strong>Benchmarking FRG-DFT with the One-Dimensional Fermi Gas – Towards a Nonperturbative Many-Body Nuclear Theory</strong>”
-        <ul>
-          <li>UTRIP Final Presentation, The University of Tokyo, Tokyo, Japan <span class="date">August 5, 2025</span></li>
-          <li><a href="https://meetings.aps.org/Meeting/FWS25/Session/L04.5">APS Far West Section</a>, UC Santa Cruz <span style="color: rgb(255, 85, 85);">(Steven Chu Award, 1st)</span> <span class="date">October 11, 2025</span></li>
-        </ul>
-      </li>
-      <li>“<strong>Data-driven statistical model of nonthermal particle acceleration by the kink instability in relativistic jets</strong>”
-        <ul>
-          <li><a href="https://meetings.aps.org/Meeting/DPP24/Session/NO05.14">APS Division of Plasma Physics</a>, Atlanta, Georgia <span class="date">October 9, 2024</span></li>
-        </ul>
-      </li>
-      <li>“<strong>From Finite Groups to Lie Algebras: Symmetries and Representations in Physics</strong>”
-        <ul>
-          <li>Perimeter Institute PSI START Program, Bishop’s University, Sherbrooke, Quebec, Canada <span class="date">May 29, 2025</span></li>
-        </ul>
-      </li>
-    </ul>
-  </section>
+  <h2>Selected Talks &amp; Presentations</h2>
+  <ul>
+    <li>“<strong>Effects of Black Hole Environments on Gravitational Wave Signals</strong>”
+      <ul class="talks-sublist">
+        <li>
+          <div class="row">
+            <span class="item-text">California Amplitudes Meeting 2025 (LA), UCLA</span>
+            <span class="date">November 8, 2025</span>
+          </div>
+        </li>
+      </ul>
+    </li>
+
+    <li>“<strong>Physics Without Borders: Nuclear Theory and Global Perspectives from a Summer in Tokyo</strong>”
+      <ul class="talks-sublist">
+        <li>
+          <div class="row">
+            <span class="item-text"><span style="color: rgb(25, 181, 46);">(invited)</span> Research Experiences for Undergraduates (REU) Special Seminar, UCLA</span>
+            <span class="date">August 15, 2025</span>
+          </div>
+        </li>
+      </ul>
+    </li>
+
+    <li>“<strong>Benchmarking FRG-DFT with the One-Dimensional Fermi Gas – Towards a Nonperturbative Many-Body Nuclear Theory</strong>”
+      <ul class="talks-sublist">
+        <li>
+          <div class="row">
+            <span class="item-text">UTRIP Final Presentation, The University of Tokyo, Tokyo, Japan</span>
+            <span class="date">August 5, 2025</span>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <span class="item-text"><a href="https://meetings.aps.org/Meeting/FWS25/Session/L04.5">APS Far West Section</a>, UC Santa Cruz <span style="color: rgb(255, 85, 85);">(Steven Chu Award, 1st)</span></span>
+            <span class="date">October 11, 2025</span>
+          </div>
+        </li>
+      </ul>
+    </li>
+
+    <li>“<strong>Data-driven statistical model of nonthermal particle acceleration by the kink instability in relativistic jets</strong>”
+      <ul class="talks-sublist">
+        <li>
+          <div class="row">
+            <span class="item-text"><a href="https://meetings.aps.org/Meeting/DPP24/Session/NO05.14">APS Division of Plasma Physics</a>, Atlanta, Georgia</span>
+            <span class="date">October 9, 2024</span>
+          </div>
+        </li>
+      </ul>
+    </li>
+
+    <li>“<strong>From Finite Groups to Lie Algebras: Symmetries and Representations in Physics</strong>”
+      <ul class="talks-sublist">
+        <li>
+          <div class="row">
+            <span class="item-text">Perimeter Institute PSI START Program, Bishop’s University, Sherbrooke, Quebec, Canada</span>
+            <span class="date">May 29, 2025</span>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</section>
+
+
+
+
+
 
   <section id="meetings">
     <h2>Meetings Attended</h2>
@@ -392,8 +482,8 @@
     <h2>Service &amp; Outreach</h2>
     <h3>Interviews &amp; Press</h3>
     <ul>
-      <li><strong>APS Steven Chu Award for Best Undergraduate Research</strong> <span class="date">upcoming</span></li>
-      <li><strong>FUTI Global Leadership Award</strong> <span class="date">upcoming</span></li>
+      <li><strong>APS Steven Chu Award for Best Undergraduate Research</strong> <span class="planned">TBA</span></li>
+      <li><strong>FUTI Global Leadership Award</strong> <span class="planned">TBA</span></li>
       <li><strong><a href="https://www.ubishops.ca/samuel-degen-perimeter-at-b-u/">Perimeter Institute’s PSI START Satellite Interview</a></strong> <span class="date">May 2025</span></li>
     </ul>
     <h3>Activities</h3>
