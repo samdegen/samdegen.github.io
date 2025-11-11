@@ -168,9 +168,36 @@
     section { max-width: 900px; margin: var(--stack-gap) auto 0 auto; padding: 1.5rem; background: var(--section-bg); border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); text-align: left; }
     h2 { border-bottom: 3px solid transparent; border-image: var(--accent-gradient) 1; padding-bottom: 0.5rem; margin-top: 0; }
     ul { padding-left: 1.2rem; } ul li strong { font-weight: 700; }
-    #honors > ul > li { margin-bottom: 0.75rem; }
-    #honors > ul > li:last-child { margin-bottom: 0; }
+    /* Add appropriate spacing in nested lists */
+    ul>li{margin-bottom:.75rem;}  
+    ul>li>ul{margin-top:.25rem;}  
+    ul ul>li{margin-bottom:0;}  
+    ul>li:last-child{margin-bottom:0;}
     details { margin-bottom: 1rem; } summary { cursor: pointer; font-weight: 700; color: var(--text-color); }
+
+    /* DATES */
+    .date {
+      font-style: italic;     /* automatically italicizes */
+      font-weight: 500;      /* optional: gives a bit more presence */
+    }
+    .date::before {
+      content: "[";
+    }
+    .date::after {
+      content: "]";
+    }
+
+    .planned {
+      color: #B088FF;         /* bright sky blue – readable on both light/dark */
+      font-style: italic;     /* automatically italicizes */
+      font-weight: 500;      /* optional: gives a bit more presence */
+    }
+    .planned::before {
+      content: "[planned ";
+    }
+    .planned::after {
+      content: "]";
+    }
 
     /* FOOTER */
     .footer { text-align: center; padding: 1.1rem 1rem; font-size: 0.98rem; background: var(--accent-gradient); color: #0b0b0b; margin-top: var(--stack-gap); border-top-left-radius: 20px; border-top-right-radius: 20px; font-weight: 600; letter-spacing: .3px; text-shadow: 0 1px 0 rgba(255,255,255,0.25); }
@@ -235,7 +262,7 @@
 <main class="page">
   <section id="summary">
     <h2>About</h2>
-    <p>Samuel Degen is a third-year physics major and URSP Scholar at UCLA researching theoretical frameworks that connect quantum field theory, gravity, and nuclear physics. His projects at UCLA and the University of Tokyo aim to improve theoretical predictions for next-generation gravitational wave and ultracold atom experiments using powerful effective methods from quantum field theory. Samuel has presented his work internationally and received multiple fellowships recognizing his independent contributions. He is deeply committed to mentorship and accessibility in science and plans to continue fostering these values as he pursues a career in academia.</p>
+    <p style="text-align: justify; text-indent: 2em;">Samuel Degen is a third-year physics major and URSP Scholar at UCLA researching theoretical frameworks that connect quantum field theory, gravity, and nuclear physics. His projects at UCLA and the University of Tokyo aim to improve theoretical predictions for next-generation gravitational wave and ultracold atom experiments using powerful effective methods from quantum field theory. Samuel has presented his work internationally and received multiple fellowships recognizing his independent contributions. He is deeply committed to mentorship and accessibility in science and plans to continue fostering these values as he pursues a career in academia.</p>
   </section>
 
   <!-- GALLERY: center-peek, wraps 1→2→3→4→1 ... with cloned ends -->
@@ -260,13 +287,13 @@
     <ul>
       <li><strong>University of California, Los Angeles (UCLA)</strong>
         <ul>
-          <li>B.S. Physics &amp; Mathematics (<em>2023 – Present</em>)</li>
+          <li>B.S. Physics &amp; Mathematics <span class="date">2023 – Present</span></li>
           <li>GPA: 3.984 overall; 4.0 major</li>
         </ul>
       </li>
       <li><strong>University of Colorado Boulder</strong>
         <ul>
-          <li>High School Concurrent Enrollment (<em>2021 – 2023</em>)</li>
+          <li>High School Concurrent Enrollment <span class="date">2021 – 2023</span></li>
           <li>GPA: 4.0 overall</li>
         </ul>
       </li>
@@ -277,41 +304,41 @@
     <h2>Honors &amp; Awards</h2>
     <h3>2025</h3>
     <ul>
-      <li><strong>APS Steven Chu Award for Best Undergraduate Research (1st)</strong> — first place prize among all undergraduate research presented at the American Physical Society's 2025 meeting of the Far West Section (includes CA, NV, HI) (<em>October 2025</em>)</li> 
-      <li><strong>UCLA Undergraduate Research Scholars Program (URSP)</strong> — year-long research scholarship (<em>2025 - 2026</em>)</li> <!-- supporting proposed work on gravitational wave scattering with Mikhail Solon (2025 - 2026)</li> -->
-      <li><strong>Mani L. Bhaumik Institute for Theoretical Physics Summer Research Fellowship</strong> — First undergraduate offered a summer research fellowship at UCLA’s Bhaumik Institute for Theoretical Physics (<em>August 2025</em>)</li>
-      <li><strong>University of Tokyo Research Internship Program (UTRIP)</strong> — 1 of 14 selected from 1,149 applicants for in-person, fully funded research and culture program (<em>June 2025</em>)
+      <li><strong>APS Steven Chu Award for Best Undergraduate Research (1st)</strong> — first place prize among all undergraduate research presented at the American Physical Society's 2025 meeting of the Far West Section (includes CA, NV, HI) <span class="date">October 2025</span></li> 
+      <li><strong>UCLA Undergraduate Research Scholars Program (URSP)</strong> — year-long research scholarship <span class="date">2025 - 2026</span></li> <!-- supporting proposed work on gravitational wave scattering with Mikhail Solon (2025 - 2026)</li> -->
+      <li><strong>Mani L. Bhaumik Institute for Theoretical Physics Summer Research Fellowship</strong> — First undergraduate offered a summer research fellowship at UCLA’s Bhaumik Institute for Theoretical Physics <span class="date">August 2025</span></li>
+      <li><strong>University of Tokyo Research Internship Program (UTRIP)</strong> — 1 of 14 selected from 1,149 applicants for in-person, fully funded research and culture program <span class="date">June 2025</span>
         <ul>
           <li><strong>FUTI Global Leadership Award</strong> — 1 of 2 UTRIP students</li>
         </ul>
       </li>
-      <li><strong>Perimeter Institute’s PSI START Satellite Program</strong> — 1 of 3 international students selected for in-person, fully funded 2-week program in theoretical physics coursework (<em>May 2025</em>)</li>
+      <li><strong>Perimeter Institute’s PSI START Satellite Program</strong> — 1 of 3 international students selected for in-person, fully funded 2-week program in theoretical physics coursework <span class="date">May 2025</span></li>
     </ul>
     <h3>2024</h3>
     <ul>
-      <li><strong>UCLA Summer Undergraduate Research Fellowship</strong> — 1 of 2 first-year undergraduates selected for competitive paid 10-week fellowship (<em>Summer 2024</em>)</li>
+      <li><strong>UCLA Summer Undergraduate Research Fellowship</strong> — 1 of 2 first-year undergraduates selected for competitive paid 10-week fellowship <span class="date">Summer 2024</span></li>
     </ul>
   </section>
 
   <section id="research">
     <h2>Research Experience</h2>
     <details>
-      <summary><strong>University of Tokyo — H. Liang Nuclear Theory Group</strong> (<em>2025–Present</em>)</summary>
-      <p>A deep microscopic understanding of quantum many-body theories would revolution- ize many fields from nucleosynthesis and reactor design to neutron-star physics and ultracold atom experiments. Density Functional Theory (DFT) is the only approach applicable across nearly the entire nuclear chart, making its derivation from first prin- ciples a hot topic in recent years. Modern theoretical tools such as the Functional Renormalization Group (FRG) have enabled a first-principles formulation of DFT, known as the FRG-DFT. Though applied to 2D and 3D electrons with Coulomb in- teractions, a theoretical benchmark and connection to experiment remain missing. We address this gap by applying FRG-DFT to the exactly solvable Gaudin-Yang model: a strongly coupled 1D Fermi gas experimentally realizable with ultracold atoms. We de- rive the exact infinite hierarchy of coupled flow equations for the ground state energy, and explicit spin dependence enables extension to the spin-unsaturated electron gas. We truncate the hierarchy to compare our first-principles equation of state calculation to perturbation theory, competing methods, and the exact solution. Our results estab- lish a clear theoretical benchmark for FRG-DFT and lay foundation for its extension to realistic higher-dimensional many-body systems.</p>
+      <summary><strong>University of Tokyo — H. Liang Nuclear Theory Group</strong> <span class="date">2025 – present</span></summary>
+      <p style="text-align: justify; text-indent: 2em;">A deep microscopic understanding of quantum many-body theories would revolutionize many fields from nucleosynthesis and reactor design to neutron-star physics and ultracold atom experiments. Density Functional Theory (DFT) is the only approach applicable across nearly the entire nuclear chart, making its derivation from first principles a hot topic in recent years. Modern theoretical tools such as the Functional Renormalization Group (FRG) have enabled a first-principles formulation of DFT, known as the FRG-DFT. Though applied to 2D and 3D electrons with Coulomb interactions, a theoretical benchmark and connection to experiment remain missing. We address this gap by applying FRG-DFT to the exactly solvable Gaudin-Yang model: a strongly coupled 1D Fermi gas experimentally realizable with ultracold atoms. We derive the exact infinite hierarchy of coupled flow equations for the ground state energy, and explicit spin dependence enables extension to the spin-unsaturated electron gas. We truncate the hierarchy to compare our first-principles equation of state calculation to perturbation theory, competing methods, and the exact solution. Our results establish a clear theoretical benchmark for FRG-DFT and lay foundation for its extension to realistic higher-dimensional many-body systems.</p>
       <p><em>Supported by UTRIP 2025 and FUTI Global Leadership Award.</em></p>
     </details>
     <details>
-      <summary><strong>UCLA — Z. Bern &amp; M. Solon Scattering Amplitudes Group</strong> (<em>2025–Present</em>)</summary>
-      <p>This project develops a new field-theoretic framework to understand how black holes interact with their surrounding environment, such as gas or dark matter, and how these interactions leave imprints on gravitational wave signals. Inspired by methods from gravitational self-force and tidal effective field theory, it aims to model the drag forces experienced by black holes as they move through a medium and predict how these effects could be detected with next-generation observatories. This approach is exciting because it could offer new ways to probe dark matter experimentally or shed new light on the process of jet quenching in QCD, potentially linking similar gravitational, particle, and astrophysical phenomena through a common theoretical language.</p>
+      <summary><strong>UCLA — Z. Bern &amp; M. Solon Scattering Amplitudes Group</strong> <span class="date">2025 – present</span></summary>
+      <p style="text-align: justify; text-indent: 2em;">This project develops a new field-theoretic framework to understand how black holes interact with their surrounding environment, such as gas or dark matter, and how these interactions leave imprints on gravitational wave signals. Inspired by methods from gravitational self-force and tidal effective field theory, it aims to model the drag forces experienced by black holes as they move through a medium and predict how these effects could be detected with next-generation observatories. This approach is exciting because it could offer new ways to probe dark matter experimentally or shed new light on the process of jet quenching in QCD, potentially linking similar gravitational, particle, and astrophysical phenomena through a common theoretical language.</p>
       <p><em>Supported by Mani L. Bhaumik Institute for Theoretical Physics Summer 2025 Research Fellowship and 2025 - 2026 UCLA URSP.</em></p>
     </details>
     <details>
-      <summary><strong>UCLA — E.P. Alves Plasma Theory Group</strong> (<em>2024–2025</em>)</summary>
-      <p>Developed novel ML-based methods for studying time-dependent particle acceleration in relativistic astrophysical jets. My work resolves longstanding limitations of standard models by combining analytic theory and machine learning to uniquely solve ill-posed problems for the first time. Demonstrated that simple energy-dependent models are insufficient to explain the observed nonthermal particle spectrum and that these novel ML methods can be generalized to solve a large class of ill-posed problems—uniquely identifying physical solutions from an infinite family of solutions that perfectly reconstruct the data. Presented results at an international plasma physics conference, where my contributed oral talk initiated discussions toward new collaborations and research directions.</p>
+      <summary><strong>UCLA — E.P. Alves Plasma Theory Group</strong> <span class="date">2024 – 2025</span></summary>
+      <p style="text-align: justify; text-indent: 2em;">Developed novel ML-based methods for studying time-dependent particle acceleration in relativistic astrophysical jets. My work resolves longstanding limitations of standard models by combining analytic theory and machine learning to uniquely solve ill-posed problems for the first time. Demonstrated that simple energy-dependent models are insufficient to explain the observed nonthermal particle spectrum and that these novel ML methods can be generalized to solve a large class of ill-posed problems—uniquely identifying physical solutions from an infinite family of solutions that perfectly reconstruct the data. Presented results at an international plasma physics conference, where my contributed oral talk initiated discussions toward new collaborations and research directions.</p>
       <p><em>Supported by UCLA Physics Summer 2024 Research Fellowship.</em></p>
     </details>
     <details>
-      <summary><strong>UCLA — B.C. Regan Condensed Matter Group</strong> (<em>2024</em>)</summary>
+      <summary><strong>UCLA — B.C. Regan Condensed Matter Group</strong> <span class="date">2024</span></summary>
       <p>Pedagogical contributions in proving the Feynman Checkerboard at a level suitable for undergraduates, illuminating an accessible way to teach propagators.</p>
     </details>
   </section>
@@ -319,25 +346,30 @@
   <section id="talks">
     <h2>Selected Talks &amp; Presentations</h2>
     <ul>
+      <li>“<strong>Effects of Black Hole Environments on Gravitational Wave Signals</strong>”
+        <ul>
+          <li>California Amplitudes Meeting 2025 (LA), UCLA <span class="date">November 8, 2025</span></li>
+        </ul>
+      </li>
       <li>“<strong>Physics Without Borders: Nuclear Theory and Global Perspectives from a Summer in Tokyo</strong>”
         <ul>
-          <li><span style="color: rgb(25, 181, 46);">(invited)</span> Research Experiences for Undergraduates (REU) Special Seminar, UCLA (<em>August 15, 2025</em>)</li>
+          <li><span style="color: rgb(25, 181, 46);">(invited)</span> Research Experiences for Undergraduates (REU) Special Seminar, UCLA <span class="date">August 15, 2025</span></li>
         </ul>
       </li>
       <li>“<strong>Benchmarking FRG-DFT with the One-Dimensional Fermi Gas – Towards a Nonperturbative Many-Body Nuclear Theory</strong>”
         <ul>
-          <li>UTRIP Final Presentation, The University of Tokyo, Tokyo, Japan (<em>August 5, 2025</em>)</li>
-          <li><a href="https://meetings.aps.org/Meeting/FWS25/Session/L04.5">APS Far West Section</a>, UC Santa Cruz <span style="color: rgb(255, 85, 85);">(Steven Chu Award, 1st)</span> (<em>October 11, 2025</em>)</li>
+          <li>UTRIP Final Presentation, The University of Tokyo, Tokyo, Japan <span class="date">August 5, 2025</span></li>
+          <li><a href="https://meetings.aps.org/Meeting/FWS25/Session/L04.5">APS Far West Section</a>, UC Santa Cruz <span style="color: rgb(255, 85, 85);">(Steven Chu Award, 1st)</span> <span class="date">October 11, 2025</span></li>
         </ul>
       </li>
       <li>“<strong>Data-driven statistical model of nonthermal particle acceleration by the kink instability in relativistic jets</strong>”
         <ul>
-          <li><a href="https://meetings.aps.org/Meeting/DPP24/Session/NO05.14">APS Division of Plasma Physics</a>, Atlanta, Georgia (<em>October 9, 2024</em>)</li>
+          <li><a href="https://meetings.aps.org/Meeting/DPP24/Session/NO05.14">APS Division of Plasma Physics</a>, Atlanta, Georgia <span class="date">October 9, 2024</span></li>
         </ul>
       </li>
       <li>“<strong>From Finite Groups to Lie Algebras: Symmetries and Representations in Physics</strong>”
         <ul>
-          <li>Perimeter Institute PSI START Program, Bishop’s University, Sherbrooke, Quebec, Canada (<em>May 29, 2025</em>)</li>
+          <li>Perimeter Institute PSI START Program, Bishop’s University, Sherbrooke, Quebec, Canada <span class="date">May 29, 2025</span></li>
         </ul>
       </li>
     </ul>
@@ -346,13 +378,13 @@
   <section id="meetings">
     <h2>Meetings Attended</h2>
     <ul>
-      <li><strong>APS Global Physics Summit 2026</strong> — Denver, Colorado (<em>planned March 2026</em>)</li>
-      <li><strong>GWSky Kick-off Meeting</strong> — Max Planck Institute for Gravitational Physics (Albert Einstein Institute–AEI), Potsdam, Germany (<em>planned December 2025</em>)</li>
-      <li><strong>California Amplitudes Meeting 2025 (LA)</strong> — Mani L. Bhaumik Institute for Theoretical Physics, UCLA (<em>November 2025</em>)</li>
-      <li><strong>2025 Annual Meeting of the APS Far West Section</strong> — UC Santa Cruz <span style="color: rgb(255, 85, 85);">(Steven Chu Award, 1st)</span> (<em>October 2025</em>)</li>
-      <li><strong>2025 Southern California Strings</strong> — Mani L. Bhaumik Institute for Theoretical Physics, UCLA (<em>October 2025</em>)</li>
-      <li><strong>California Amplitudes Meeting 2025 (Davis)</strong> — Center for Quantum Mathematics and Physics (QMAP), UC Davis (<em>May 2025</em>)</li>
-      <li><strong>66th Annual Meeting of the APS Division of Plasma Physics</strong> — Atlanta, Georgia (<em>October 2024</em>)</li>
+      <li><strong>APS Global Physics Summit 2026</strong> — Denver, Colorado <span class="planned">March 2026</span></li>
+      <li><strong>GWSky Kick-off Meeting</strong> — Max Planck Institute for Gravitational Physics (Albert Einstein Institute–AEI), Potsdam, Germany <span class="planned">December 2025</span></li>
+      <li><strong>California Amplitudes Meeting 2025 (LA)</strong> — Mani L. Bhaumik Institute for Theoretical Physics, UCLA <span class="date">November 2025</span></li>
+      <li><strong>2025 Annual Meeting of the APS Far West Section</strong> — UC Santa Cruz <span style="color: rgb(255, 85, 85);">(Steven Chu Award, 1st)</span> <span class="date">October 2025</span></li>
+      <li><strong>2025 Southern California Strings</strong> — Mani L. Bhaumik Institute for Theoretical Physics, UCLA <span class="date">October 2025</span></li>
+      <li><strong>California Amplitudes Meeting 2025 (Davis)</strong> — Center for Quantum Mathematics and Physics (QMAP), UC Davis <span class="date">May 2025</span></li>
+      <li><strong>66th Annual Meeting of the APS Division of Plasma Physics</strong> — Atlanta, Georgia <span class="date">October 2024</span></li>
     </ul>
   </section>
 
@@ -360,9 +392,9 @@
     <h2>Service &amp; Outreach</h2>
     <h3>Interviews &amp; Press</h3>
     <ul>
-      <li><strong>APS Steven Chu Award for Best Undergraduate Research</strong> (<em>upcoming</em>)</li>
-      <li><strong>FUTI Global Leadership Award</strong> (<em>upcoming</em>)</li>
-      <li><strong><a href="https://www.ubishops.ca/samuel-degen-perimeter-at-b-u/">Perimeter Institute’s PSI START Satellite Interview</a></strong> (<em>May 2025</em>)</li>
+      <li><strong>APS Steven Chu Award for Best Undergraduate Research</strong> <span class="date">upcoming</span></li>
+      <li><strong>FUTI Global Leadership Award</strong> <span class="date">upcoming</span></li>
+      <li><strong><a href="https://www.ubishops.ca/samuel-degen-perimeter-at-b-u/">Perimeter Institute’s PSI START Satellite Interview</a></strong> <span class="date">May 2025</span></li>
     </ul>
     <h3>Activities</h3>
     <ul>
@@ -373,7 +405,7 @@
   </section>
 </main>
 
-<div class="footer">© 2025 Samuel Degen — Last updated October 2025</div>
+<div class="footer">© 2025 Samuel Degen — Last updated November 2025</div>
 
 <button id="modeToggle" aria-label="Toggle dark/light mode"></button>
 
