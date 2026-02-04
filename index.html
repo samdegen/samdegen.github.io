@@ -293,6 +293,48 @@ ul li > .planned::after  { content: "]"; }
 
 
 
+    /* NEWS SECTION — scrollable */
+    #news {
+      max-height: 155px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-gutter: stable;
+    }
+    #news ul {
+      margin: 0;
+      padding-left: 1.2rem;
+    }
+    /* Webkit scrollbar styling (Chrome, Safari, Edge) */
+    #news::-webkit-scrollbar {
+      width: 8px;
+    }
+    #news::-webkit-scrollbar-track {
+      background: transparent;
+      margin: 8px 0;
+    }
+    #news::-webkit-scrollbar-thumb {
+      background: rgba(200, 200, 200, 0.6);
+      border-radius: 4px;
+      margin: 8px 0;
+    }
+    #news::-webkit-scrollbar-thumb:hover {
+      background: rgba(200, 200, 200, 0.8);
+    }
+    body.light-mode #news::-webkit-scrollbar-thumb {
+      background: rgba(100, 100, 100, 0.4);
+    }
+    body.light-mode #news::-webkit-scrollbar-thumb:hover {
+      background: rgba(100, 100, 100, 0.6);
+    }
+    /* Firefox scrollbar styling */
+    #news {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(200, 200, 200, 0.6) transparent;
+    }
+    body.light-mode #news {
+      scrollbar-color: rgba(100, 100, 100, 0.4) transparent;
+    }
+
     /* FOOTER */
     .footer { text-align: center; padding: 1.1rem 1rem; font-size: 0.98rem; background: var(--accent-gradient); color: #0b0b0b; margin-top: var(--stack-gap); border-top-left-radius: 20px; border-top-right-radius: 20px; font-weight: 600; letter-spacing: .3px; text-shadow: 0 1px 0 rgba(255,255,255,0.25); }
 
@@ -365,6 +407,46 @@ ul li > .planned::after  { content: "]"; }
   <section id="summary">
     <h2>About</h2>
     <p style="text-align: justify; text-indent: 2em;">I am a third-year physics major and Goldwater Nominee at UCLA pursuing theoretical research at the intersection of quantum field theory, gravity, and nuclear physics. My work at UCLA and the University of Tokyo uses powerful effective methods to connect fundamental theory with experimentally relevant problems, including next-generation gravitational wave and ultracold atom experiments. I have presented my research internationally and received multiple competitive fellowships recognizing my independent contributions. Alongside research, I am deeply committed to mentorship and accessibility in science, and I aim to carry these values forward as I pursue a career as an academic researcher and educator.</p>
+  </section>
+
+  <section id="news">
+    <h2>News</h2>
+    <ul>
+      <li>
+        <span class="li-row">
+          <span class="li-text">Nominated by UCLA for national <a href="https://www.scholarshipcenter.ucla.edu/prestigious-scholars/goldwater-scholarship/">Goldwater Scholarship</a> (1 of 4 at UCLA)</span>
+          <span class="date">1 / 2026</span>
+        </span>
+      </li>
+
+      <li>
+        <span class="li-row">
+          <span class="li-text">FUTI Global Leadership Award <a href="https://www.friendsofutokyo.org/en/university-of-tokyos-quark-nuclear-science-institute/">Report</a> available online</span>
+          <span class="date">12 / 2025</span>
+        </span>
+      </li>
+
+      <li>
+        <span class="li-row">
+          <span class="li-text"><a href="https://www.s.u-tokyo.ac.jp/en/utrip/archive/2025/overview/">UTRIP Archive</a> and <a href="https://www.s.u-tokyo.ac.jp/en/utrip/archive/2025/research-projects/">Final Report</a> available online</span>
+          <span class="date">12 / 2025</span>
+        </span>
+      </li>
+
+      <li>
+        <span class="li-row">
+          <span class="li-text">Attended <a href="https://gwsky.org/gwsky-kick-off-meeting/">GWSky Kick-off Meeting</a> at Albert Einstein Institute (Germany)</span>
+          <span class="date">12 / 2025</span>
+        </span>
+      </li>
+
+      <li>
+        <span class="li-row">
+          <span class="li-text"><a href="https://shorturl.at/Izqlv">Won 1st prize</a> of APS Steven Chu Award for Best Undergraduate Research</span>
+          <span class="date">10 / 2025</span>
+        </span>
+      </li>
+    </ul>
   </section>
 
   <!-- GALLERY: center-peek, wraps 1→2→3→4→1 ... with cloned ends -->
