@@ -38,9 +38,9 @@
     html { scroll-behavior: smooth; }
     :root { 
       --bg-color: #3a3a3a;
-      --bg-grad-1: #1f2a44;
-      --bg-grad-2: #2a1f3f;
-      --bg-grad-3: #103235;
+      --bg-grad-1: #2a0066;
+      --bg-grad-2: #0f1233;
+      --bg-grad-3: #00d2d3;
       --bg-noise-opacity: 0.04;
       --text-color: #eaeaea;
       --section-bg: #1d1d1d;
@@ -56,9 +56,9 @@
     }
     body.light-mode {
       --bg-color: #ffffff;
-      --bg-grad-1: #f9fbff;
-      --bg-grad-2: #eef5ff;
-      --bg-grad-3: #f6f0ff;
+      --bg-grad-1: #ecf5ff;
+      --bg-grad-2: #f2ebff;
+      --bg-grad-3: #dcfbff;
       --bg-noise-opacity: 0.03;
       --text-color: #333333;
       --section-bg: #ffffff; /* pure white cards */
@@ -76,14 +76,22 @@
       margin: 0;
       background-color: var(--bg-color);
       background-image:
-        radial-gradient(circle at 12% 18%, color-mix(in srgb, var(--bg-grad-1) 92%, transparent) 0%, transparent 48%),
-        radial-gradient(circle at 84% 80%, color-mix(in srgb, var(--bg-grad-3) 88%, transparent) 0%, transparent 52%),
-        linear-gradient(135deg, var(--bg-grad-1), var(--bg-grad-2) 55%, var(--bg-grad-3));
+        radial-gradient(circle at 16% 84%, color-mix(in srgb, var(--bg-grad-3) 92%, transparent) 0%, transparent 48%),
+        radial-gradient(circle at 68% 0%, color-mix(in srgb, var(--bg-grad-1) 92%, transparent) 0%, transparent 44%),
+        radial-gradient(circle at 64% 56%, color-mix(in srgb, #000000 78%, transparent) 0%, transparent 50%),
+        linear-gradient(130deg, var(--bg-grad-2) 10%, color-mix(in srgb, var(--bg-grad-1) 72%, var(--bg-grad-2)) 56%, var(--bg-grad-2) 100%);
       background-size: 200% 200%;
       animation: bg-shift 18s ease-in-out infinite;
       color: var(--text-color);
       line-height: 1.6;
       transition: background-color 0.3s, color 0.3s;
+    }
+    body.light-mode {
+      background-image:
+        radial-gradient(circle at 18% 82%, color-mix(in srgb, var(--bg-grad-3) 72%, transparent) 0%, transparent 46%),
+        radial-gradient(circle at 74% 2%, color-mix(in srgb, var(--bg-grad-1) 72%, transparent) 0%, transparent 42%),
+        radial-gradient(circle at 65% 58%, rgba(255,255,255,0.35) 0%, transparent 54%),
+        linear-gradient(130deg, var(--bg-grad-2) 12%, var(--bg-grad-1) 56%, var(--bg-grad-3) 100%);
     }
     @keyframes bg-shift {
       0% { background-position: 0% 50%; }
