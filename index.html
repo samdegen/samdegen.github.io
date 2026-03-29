@@ -38,8 +38,12 @@
     html { scroll-behavior: smooth; }
     :root { 
       --bg-color: #3a3a3a;
+      --bg-grad-1: #1f2a44;
+      --bg-grad-2: #2a1f3f;
+      --bg-grad-3: #103235;
+      --bg-noise-opacity: 0.04;
       --text-color: #eaeaea;
-      --section-bg: #222222;
+      --section-bg: #1d1d1d;
       --accent-gradient: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
       --nav-bg: #333333; /* pills */
       --nav-fg: #ffffff;
@@ -52,6 +56,10 @@
     }
     body.light-mode {
       --bg-color: #ffffff;
+      --bg-grad-1: #f9fbff;
+      --bg-grad-2: #eef5ff;
+      --bg-grad-3: #f6f0ff;
+      --bg-noise-opacity: 0.03;
       --text-color: #333333;
       --section-bg: #ffffff; /* pure white cards */
       --accent-gradient: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
@@ -63,7 +71,28 @@
     }
 
     /* TYPOGRAPHY */
-    body { font-family: 'Calibre', 'Calibri', 'Helvetica Neue', Helvetica, Arial, system-ui, -apple-system, Segoe UI, sans-serif; margin: 0; background: var(--bg-color); color: var(--text-color); line-height: 1.6; transition: background 0.3s, color 0.3s; }
+    body {
+      font-family: 'Calibre', 'Calibri', 'Helvetica Neue', Helvetica, Arial, system-ui, -apple-system, Segoe UI, sans-serif;
+      margin: 0;
+      background-color: var(--bg-color);
+      background-image:
+        radial-gradient(circle at 12% 18%, color-mix(in srgb, var(--bg-grad-1) 92%, transparent) 0%, transparent 48%),
+        radial-gradient(circle at 84% 80%, color-mix(in srgb, var(--bg-grad-3) 88%, transparent) 0%, transparent 52%),
+        linear-gradient(135deg, var(--bg-grad-1), var(--bg-grad-2) 55%, var(--bg-grad-3));
+      background-size: 200% 200%;
+      animation: bg-shift 18s ease-in-out infinite;
+      color: var(--text-color);
+      line-height: 1.6;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    @keyframes bg-shift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      body { animation: none; }
+    }
     main a {
       color: #225ee8;
       text-decoration-color: rgba(34, 94, 232, 0.5);
