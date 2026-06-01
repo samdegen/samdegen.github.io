@@ -187,6 +187,17 @@
       content: "]";
     } */
 
+    .arxivNum {
+      font-family: monospace;
+      /* font-weight: 500; */
+    }
+    .arxivNum::before {
+      content: "[";
+    }
+    .arxivNum::after {
+      content: "]";
+    }
+
     .planned {
       color: #B088FF;         /* bright sky blue – readable on both light/dark */
       font-style: italic;     /* automatically italicizes */
@@ -219,6 +230,7 @@ ul li { display: list-item; line-height: 1.45; }
 
 /* Grid ONLY when a top-level date exists (keeps spacing sane) */
 ul li:has(> .date),
+ul li:has(> .arxivNum),
 ul li:has(> .planned) {
   display: grid;
   grid-template-columns: minmax(0, 1fr) max-content; /* text | date */
@@ -229,8 +241,9 @@ ul li:has(> .planned) {
 }
 
 /* Left column = everything except the date/planned */
-ul li:has(> .date) > :not(.date):not(.planned),
-ul li:has(> .planned) > :not(.date):not(.planned) {
+ul li:has(> .date) > :not(.date):not(.planned):not(.arxivNum),
+ul li:has(> .planned) > :not(.date):not(.planned):not(.arxivNum),
+ul li:has(> .arxivNum) > :not(.date):not(.planned):not(.arxivNum) {
   grid-column: 1;
   min-width: 0;
   margin: 0;                             /* prevent phantom paragraph gaps */
@@ -238,6 +251,7 @@ ul li:has(> .planned) > :not(.date):not(.planned) {
 
 /* Right column = date/planned */
 ul li > .date,
+ul li > .arxivNum,
 ul li > .planned {
   grid-column: 2;
   justify-self: end;
@@ -414,6 +428,13 @@ ul li > .planned::after  { content: "]"; }
     <ul>
       <li>
         <span class="li-row">
+          <span class="li-text"><a href="https://arxiv.org/abs/2605.31112">First paper</a> shared on arXiv!</span>
+          <span class="date">5 / 2026</span>
+        </span>
+      </li>
+
+      <li>
+        <span class="li-row">
           <span class="li-text">Accepted to <a href="https://indico.math.cnrs.fr/event/15597/">2026 IHES Summer School on Cosmological Correlators</a> in France and <a href="https://sciences.ugresearch.ucla.edu/programs-and-scholarships/urc-sciences-summer-program/">UCLA URC-Sciences Summer Program</a>; offered <a href="https://fusep.ustc.edu.cn/fusep/">USTC Future Scientist Exchange Program</a> in China</span>
           <span class="date">5 / 2026</span>
         </span>
@@ -523,6 +544,22 @@ ul li > .planned::after  { content: "]"; }
           </span>
         </li>
       </ul>
+    </li>
+  </ul>
+</section>
+
+
+
+<section id="publications">
+  <h2>Publications</h2>
+  <ul>
+    <li>
+      <span class="li-row">
+        <span class="li-text">
+          S. Wang, <strong>S. Degen</strong> and H. Liang, “Functional methods for quantum thermodynamics”
+        </span>
+        <span class="arxivNum"><a href="https://arxiv.org/abs/2605.31112">2605.31112</a></span>
+      </span>
     </li>
   </ul>
 </section>
@@ -642,7 +679,7 @@ ul li > .planned::after  { content: "]"; }
     <details>
       <summary><strong>University of Tokyo — H. Liang Nuclear Theory Group</strong> <span class="date">(2025 – present)</span></summary>
       <p style="text-align: justify; text-indent: 2em;">A deep microscopic understanding of quantum many-body theories would revolutionize many fields from nucleosynthesis and reactor design to neutron-star physics and ultracold atom experiments. Density Functional Theory (DFT) is the only approach applicable across nearly the entire nuclear chart, making its derivation from first principles a hot topic in recent years. Modern theoretical tools such as the Functional Renormalization Group (FRG) have enabled a first-principles formulation of DFT, known as the FRG-DFT. Though applied to 2D and 3D electrons with Coulomb interactions, a theoretical benchmark and connection to experiment remain missing. We address this gap by applying FRG-DFT to the exactly solvable Gaudin-Yang model: a strongly coupled 1D Fermi gas experimentally realizable with ultracold atoms. We derive the exact infinite hierarchy of coupled flow equations for the ground state energy, and explicit spin dependence enables extension to the spin-unsaturated electron gas. We truncate the hierarchy to compare our first-principles equation of state calculation to perturbation theory, competing methods, and the exact solution. Our results establish a clear theoretical benchmark for FRG-DFT and lay foundation for its extension to realistic higher-dimensional many-body systems.</p>
-      <p><em>Supported by UTRIP 2025 and FUTI Global Leadership Award.</em></p>
+      <p><em>Supported by UTRIP 2025 and FUTI Global Leadership Award. Associated publication: <a href="https://arxiv.org/abs/2605.31112">2605.31112</a></em></p>
     </details>
     <details>
       <summary><strong>UCLA — Z. Bern &amp; M. Solon Scattering Amplitudes Group</strong> <span class="date">(2025 – present)</span></summary>
@@ -664,6 +701,17 @@ ul li > .planned::after  { content: "]"; }
   <section id="talks">
   <h2>Selected Talks &amp; Presentations</h2>
   <ul>
+    <li>“<strong>Gravitational Drag from Phonon Emission</strong>”
+      <ul class="talks-sublist">
+        <li>
+          <div class="row">
+            <span class="item-text"><a href="https://qmap.ucdavis.edu/california-amplitudes-meeting-2026#:~:text=Samuel%20Degen%3A%20Gravitational%20Drag%20from%20Phonon%20Emission">California Amplitudes Meeting 2026 (Davis)</a>, QMAP, UC Davis</span>
+            <span class="date">May 30, 2026</span>
+          </div>
+        </li>
+      </ul>
+    </li>
+
     <li>“<strong>Effects of Black Hole Environments on Gravitational Wave Signals</strong>”
       <ul class="talks-sublist">
         <li>
@@ -758,6 +806,13 @@ ul li > .planned::after  { content: "]"; }
       <span class="li-row">
         <span class="li-text"><strong>2026 IHES Summer School - Cosmological Correlators</strong> — Institut des Hautes Études Scientifiques (IHES), France</span>
         <span class="planned">July 2026</span>
+      </span>
+    </li>
+
+    <li>
+      <span class="li-row">
+        <span class="li-text"><strong>California Amplitudes Meeting 2026 (Davis)</strong> — Center for Quantum Mathematics and Physics (QMAP), UC Davis</span>
+        <span class="date">May 2026</span>
       </span>
     </li>
 
