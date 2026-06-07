@@ -1621,6 +1621,28 @@ ul li > .planned::after  { content: "]"; }
         bottom: 10px;
       }
     }
+
+    @media (hover: none), (pointer: coarse) {
+      #modeToggle {
+        box-shadow: none;
+        transition: background .25s ease;
+      }
+
+      #modeToggle:hover,
+      #modeToggle:focus-visible,
+      #modeToggle:active {
+        box-shadow: none;
+        transform: none;
+      }
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      #modeToggle:hover,
+      #modeToggle:focus-visible {
+        box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+        transform: translateY(-1px);
+      }
+    }
   </style>
 </head>
 <body>
