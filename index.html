@@ -64,6 +64,10 @@
 
     /* TYPOGRAPHY */
     body { font-family: 'Calibre', 'Calibri', 'Helvetica Neue', Helvetica, Arial, system-ui, -apple-system, Segoe UI, sans-serif; margin: 0; background: var(--bg-color); color: var(--text-color); line-height: 1.6; transition: background 0.3s, color 0.3s; }
+    html,
+    body {
+      overflow-x: hidden;
+    }
     main a {
       color: #225ee8;
       text-decoration-color: rgba(34, 94, 232, 0.5);
@@ -377,45 +381,1322 @@ ul li > .planned::after  { content: "]"; }
         font-size: 0.95em;           /* optional: slightly smaller for fit */
       }
     }
+
+    /* ===== Research Portfolio v2 visual foundation ===== */
+    :root {
+      color-scheme: dark;
+      --page-bg: #09090b;
+      --page-bg-2: #121016;
+      --ink: #f7f3ea;
+      --muted: #aaa6b7;
+      --faint: rgba(247, 243, 234, 0.62);
+      --panel: rgba(19, 18, 24, 0.82);
+      --panel-solid: #15131a;
+      --panel-soft: rgba(255, 255, 255, 0.055);
+      --line: rgba(247, 243, 234, 0.14);
+      --line-strong: rgba(247, 243, 234, 0.28);
+      --blue: #9ddcff;
+      --violet: #c5a8ff;
+      --orange: #ffb36b;
+      --rose: #ff7d9b;
+      --red: #ff624d;
+      --green: #90e6bb;
+      --max: 1180px;
+      --header-h: 72px;
+      --ease: cubic-bezier(.2, .8, .2, 1);
+    }
+
+    body.light-mode {
+      color-scheme: light;
+      --page-bg: #f6f2e9;
+      --page-bg-2: #fffaf0;
+      --ink: #17131d;
+      --muted: #5e586b;
+      --faint: rgba(23, 19, 29, 0.68);
+      --panel: rgba(255, 253, 247, 0.86);
+      --panel-solid: #fffdf7;
+      --panel-soft: rgba(23, 19, 29, 0.045);
+      --line: rgba(23, 19, 29, 0.13);
+      --line-strong: rgba(23, 19, 29, 0.24);
+      --blue: #1e6f96;
+      --violet: #6e4cb7;
+      --orange: #c75b20;
+      --rose: #b83663;
+      --red: #b83b2f;
+      --green: #21734f;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(197, 168, 255, 0.22), transparent 32rem),
+        radial-gradient(circle at 86% 8%, rgba(255, 179, 107, 0.16), transparent 28rem),
+        radial-gradient(circle at 60% 92%, rgba(157, 220, 255, 0.13), transparent 34rem),
+        linear-gradient(135deg, var(--page-bg), var(--page-bg-2) 54%, var(--page-bg));
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.62;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(247, 243, 234, 0.075) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(247, 243, 234, 0.075) 1px, transparent 1px);
+      background-size: 46px 46px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.86), rgba(0,0,0,0.22) 62%, transparent);
+    }
+
+    body.light-mode::before {
+      background-image:
+        linear-gradient(rgba(23, 19, 29, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(23, 19, 29, 0.08) 1px, transparent 1px);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: auto -20vw -35vh auto;
+      width: 70vw;
+      height: 70vw;
+      z-index: -1;
+      pointer-events: none;
+      background: conic-gradient(from 120deg, rgba(255, 125, 155, .2), rgba(157, 220, 255, .16), rgba(255, 179, 107, .18), rgba(255, 125, 155, .2));
+      filter: blur(80px);
+      opacity: .5;
+    }
+
+    body:not(.light-mode) main a,
+    body:not(.light-mode) main a:visited,
+    main a,
+    main a:visited {
+      color: var(--blue);
+      text-decoration-color: color-mix(in srgb, var(--blue), transparent 54%);
+      text-underline-offset: 0.16em;
+    }
+
+    main a:hover,
+    main a:focus-visible {
+      color: var(--orange);
+      text-decoration-color: currentColor;
+    }
+
+    body:not(.light-mode) main a:hover,
+    body:not(.light-mode) main a:focus-visible {
+      color: var(--orange);
+      text-decoration-color: currentColor;
+    }
+
+    .site-hero {
+      position: relative;
+      min-height: min(900px, 100svh);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px clamp(16px, 4vw, 48px) clamp(28px, 5vw, 64px);
+      background: transparent;
+      border-radius: 0;
+      box-shadow: none;
+      text-align: left;
+      overflow: visible;
+      isolation: isolate;
+    }
+
+    .site-hero::before {
+      content: "";
+      position: absolute;
+      inset: 12% -18% auto auto;
+      width: min(70vw, 860px);
+      aspect-ratio: 1;
+      z-index: -1;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(255, 255, 255, .2) 0 1px, transparent 1.5px),
+        radial-gradient(circle, rgba(197, 168, 255, .2), transparent 62%);
+      background-size: 22px 22px, 100% 100%;
+      filter: blur(.1px);
+      opacity: .72;
+      animation: drift-field 28s linear infinite;
+    }
+
+    @keyframes drift-field {
+      from { transform: rotate(0deg) translate3d(0,0,0); }
+      to { transform: rotate(360deg) translate3d(0,0,0); }
+    }
+
+    .topbar {
+      position: sticky;
+      top: 14px;
+      z-index: 30;
+      max-width: var(--max);
+      width: 100%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      gap: 18px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--panel), transparent 4%);
+      box-shadow: 0 18px 70px rgba(0, 0, 0, .22);
+      backdrop-filter: blur(18px) saturate(140%);
+      overflow: visible;
+    }
+
+    .topbar a,
+    .topbar a:visited {
+      min-width: 0;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      background-image: none;
+      box-shadow: none;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 760;
+      letter-spacing: 0;
+      text-transform: none;
+      transition: color .2s var(--ease), background .2s var(--ease), transform .2s var(--ease), border-color .2s var(--ease);
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line-strong);
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--panel-solid), transparent 10%);
+      box-shadow: 0 10px 30px rgba(0,0,0,.18);
+      overflow: hidden;
+    }
+
+    .brand-mark img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: clamp(8px, 1.8vw, 22px);
+      font-size: clamp(.78rem, 1.05vw, .92rem);
+      padding-block: 9px;
+      margin-block: -9px;
+      overflow: visible;
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 0 12px !important;
+      border: 1px solid transparent !important;
+      border-radius: 999px !important;
+      color: var(--faint);
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--ink);
+      border-color: var(--line-strong) !important;
+      background: var(--panel-soft) !important;
+      box-shadow: 0 10px 28px rgba(0,0,0,.18) !important;
+      transform: translateY(-1px);
+    }
+
+    .nav-cta {
+      display: inline-grid !important;
+      place-items: center;
+      min-height: 44px !important;
+      padding: 0 18px !important;
+      border: 1px solid var(--line-strong) !important;
+      border-radius: 999px !important;
+      color: var(--ink) !important;
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--blue), transparent 74%), color-mix(in srgb, var(--orange), transparent 78%)) !important;
+    }
+
+    .nav-cta:hover,
+    .nav-cta:focus-visible {
+      border-color: var(--blue) !important;
+      box-shadow: 0 0 0 5px color-mix(in srgb, var(--blue), transparent 86%) !important;
+      transform: translateY(-1px);
+    }
+
+    .hero-grid {
+      max-width: var(--max);
+      width: 100%;
+      margin: clamp(50px, 9vh, 96px) auto 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(320px, .72fr);
+      gap: clamp(28px, 5vw, 76px);
+      align-items: end;
+    }
+
+    .eyebrow,
+    .section-kicker {
+      margin: 0 0 12px;
+      color: var(--blue);
+      font-size: .78rem;
+      font-weight: 820;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .hero-copy h1 {
+      max-width: 850px;
+      margin: 0;
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(4.3rem, 13vw, 10.8rem);
+      font-weight: 500;
+      letter-spacing: 0;
+      line-height: .83;
+    }
+
+    .hero-copy h1 span {
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 1.2px color-mix(in srgb, var(--ink), transparent 24%);
+      text-shadow: 0 0 30px color-mix(in srgb, var(--blue), transparent 82%);
+    }
+
+    .hero-lede {
+      max-width: 760px;
+      margin: 26px 0 0;
+      color: var(--faint);
+      font-size: clamp(1.04rem, 1.6vw, 1.32rem);
+      line-height: 1.55;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .contact-chip,
+    .contact-chip:visited {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 46px;
+      padding: 0 18px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      overflow: hidden;
+      color: var(--ink);
+      background: var(--panel-soft);
+      text-decoration: none;
+      font-weight: 780;
+      transition: transform .22s var(--ease), border-color .22s var(--ease), box-shadow .22s var(--ease), background .22s var(--ease);
+    }
+
+    .contact-chip::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(110deg, transparent, color-mix(in srgb, var(--blue), transparent 64%), transparent);
+      transform: translateX(-120%);
+      transition: transform .55s var(--ease);
+    }
+
+    .contact-chip:hover,
+    .contact-chip:focus-visible {
+      color: var(--ink);
+      border-color: var(--blue);
+      box-shadow: 0 0 0 5px color-mix(in srgb, var(--blue), transparent 86%);
+      transform: translateY(-2px);
+    }
+
+    .contact-chip:hover::before,
+    .contact-chip:focus-visible::before {
+      transform: translateX(120%);
+    }
+
+    .contact-chip svg {
+      width: 17px;
+      height: 17px;
+      flex: 0 0 auto;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      max-width: 700px;
+      margin-top: 36px;
+    }
+
+    .stat {
+      min-height: 124px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.025));
+      border-radius: 8px;
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.08rem, 1.7vw, 1.42rem);
+      line-height: 1.1;
+      font-weight: 500;
+    }
+
+    .stat .stat-label {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--orange);
+      font-size: .68rem;
+      font-weight: 860;
+      letter-spacing: .13em;
+      line-height: 1.25;
+      text-transform: uppercase;
+    }
+
+    .stat .stat-desc {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: .84rem;
+      line-height: 1.38;
+    }
+
+    .field-panel {
+      position: relative;
+      min-height: clamp(440px, 58vh, 640px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(18px, 3vh, 34px);
+      padding: clamp(24px, 4vw, 42px);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 38%, rgba(255,255,255,.13), transparent 20rem),
+        linear-gradient(160deg, rgba(197, 168, 255, .14), transparent 34%),
+        linear-gradient(20deg, rgba(255, 179, 107, .12), transparent 36%),
+        var(--panel);
+      box-shadow: 0 34px 110px rgba(0,0,0,.34);
+    }
+
+    .black-hole-art {
+      position: relative;
+      order: 2;
+      z-index: 0;
+      width: min(92%, 470px);
+      aspect-ratio: 1.85;
+      transform: rotate(-4deg);
+      opacity: .82;
+      pointer-events: none;
+    }
+
+    .black-hole-art::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 28%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      background:
+        radial-gradient(circle, #000 0 46%, rgba(0,0,0,.72) 47% 56%, transparent 58%),
+        radial-gradient(circle, rgba(255,255,255,.42), transparent 68%);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.22),
+        0 0 46px color-mix(in srgb, var(--blue), transparent 54%);
+    }
+
+    .black-hole-art::after {
+      content: "";
+      position: absolute;
+      inset: 18% 4%;
+      border: 1px solid color-mix(in srgb, var(--ink), transparent 44%);
+      border-left-color: transparent;
+      border-right-color: transparent;
+      border-radius: 50%;
+      transform: rotate(8deg);
+      box-shadow:
+        0 0 0 11px rgba(255,255,255,.018),
+        0 0 38px color-mix(in srgb, var(--blue), transparent 76%);
+    }
+
+    .black-hole-art span {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: calc(46% + var(--r) * 11%);
+      height: calc(18% + var(--r) * 5%);
+      border: 1px solid color-mix(in srgb, var(--ink), transparent calc(54% + var(--r) * 6%));
+      border-top-color: transparent;
+      border-bottom-color: color-mix(in srgb, var(--ink), transparent calc(38% + var(--r) * 5%));
+      border-radius: 50%;
+      transform: translate(-50%, -50%) rotate(calc(-13deg + var(--r) * 7deg));
+    }
+
+    .portrait-frame {
+      position: relative;
+      order: 1;
+      z-index: 2;
+      width: min(80%, 360px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 0;
+      overflow: hidden;
+      box-shadow: 0 24px 70px rgba(0,0,0,.42);
+    }
+
+    .portrait-frame img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: 50% 24%;
+      border: 0;
+      transform: scale(1.34);
+    }
+
+    .field-note {
+      position: relative;
+      order: 3;
+      z-index: 2;
+      max-width: 320px;
+      margin: 0;
+      color: var(--ink);
+      font-size: .98rem;
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    .field-note strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--blue);
+      font-size: .72rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .scroll-cue {
+      max-width: var(--max);
+      width: 100%;
+      margin: 18px auto 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--muted);
+      font-size: .76rem;
+      font-weight: 780;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .scroll-cue::before {
+      content: "";
+      width: 44px;
+      height: 1px;
+      background: var(--line-strong);
+    }
+
+    .section-rail {
+      position: fixed;
+      top: max(20px, env(safe-area-inset-top));
+      bottom: max(20px, env(safe-area-inset-bottom));
+      left: 16px;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0;
+      transform: none;
+    }
+
+    .section-rail a,
+    .section-rail a:visited {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      color: color-mix(in srgb, var(--ink), transparent 46%);
+      font-size: .66rem;
+      font-weight: 840;
+      letter-spacing: .12em;
+      padding: 4px 0;
+      border-left: 2px solid transparent;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color .2s var(--ease), transform .2s var(--ease);
+    }
+
+    .section-rail a.is-active,
+    .section-rail a:hover,
+    .section-rail a:focus-visible {
+      color: var(--orange);
+      border-left-color: var(--orange);
+      transform: translateX(2px);
+    }
+
+    main.page {
+      width: min(var(--max), calc(100% - clamp(28px, 6vw, 96px)));
+      margin: 0 auto;
+      padding: clamp(24px, 4vw, 48px) 0 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    section {
+      max-width: none;
+      margin: 0;
+      padding: clamp(22px, 3.4vw, 42px);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
+      box-shadow: none;
+      text-align: left;
+      backdrop-filter: blur(12px) saturate(125%);
+      scroll-margin-top: calc(var(--header-h) + 24px);
+    }
+
+    #summary,
+    #research {
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--blue), transparent 88%), transparent 42%),
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+    }
+
+    #news {
+      max-height: 255px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-gutter: stable;
+    }
+
+    #news ul {
+      margin: 0;
+    }
+
+    h2 {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 18px;
+      padding-bottom: 0;
+      border: 0;
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.75rem, 3vw, 2.9rem);
+      font-weight: 500;
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    h2::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      min-width: 48px;
+      background: linear-gradient(90deg, var(--line-strong), transparent);
+    }
+
+    h3 {
+      margin: 28px 0 12px;
+      color: var(--orange);
+      font-size: .85rem;
+      font-weight: 850;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    section p {
+      color: var(--faint);
+      max-width: 78ch;
+    }
+
+    #summary p {
+      max-width: none;
+    }
+
+    section p[style] {
+      text-align: left !important;
+      text-indent: 0 !important;
+    }
+
+    #summary p[style] {
+      text-align: justify !important;
+      text-indent: 2em !important;
+    }
+
+    #research details p:first-of-type {
+      text-align: justify !important;
+      text-indent: 2em !important;
+    }
+
+    ul {
+      padding-left: 1rem;
+    }
+
+    ul li {
+      line-height: 1.5;
+    }
+
+    .li-row,
+    .talks-sublist > li > .row {
+      gap: .9rem;
+    }
+
+    ul li > .date,
+    ul li > .arxivNum,
+    ul li > .planned,
+    .talks-sublist .date,
+    .li-row > .date,
+    .li-row > .planned {
+      color: var(--muted);
+      font-size: .88em;
+      font-style: normal;
+    }
+
+    ul li > .planned,
+    .li-row > .planned {
+      color: var(--violet);
+    }
+
+    .arxivNum a,
+    .arxivNum a:visited {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 0 14px;
+      border: 1px solid color-mix(in srgb, var(--blue), transparent 46%);
+      border-radius: 999px;
+      background: var(--panel-soft);
+      color: var(--blue);
+      font-family: inherit;
+      box-shadow: 0 10px 28px rgba(0,0,0,.12);
+      text-decoration: none;
+      transition: color .2s var(--ease), border-color .2s var(--ease), box-shadow .2s var(--ease), transform .2s var(--ease);
+    }
+
+    .arxivNum::before,
+    .arxivNum::after {
+      content: none;
+    }
+
+    .arxivNum a:hover,
+    .arxivNum a:focus-visible {
+      color: var(--orange);
+      border-color: var(--orange);
+      box-shadow: 0 0 0 5px color-mix(in srgb, var(--orange), transparent 86%);
+      transform: translateY(-1px);
+    }
+
+    details {
+      margin: 0 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255,255,255,.035);
+      overflow: hidden;
+    }
+
+    details[open] {
+      border-color: color-mix(in srgb, var(--blue), transparent 58%);
+      background: rgba(255,255,255,.055);
+    }
+
+    summary {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto 28px;
+      gap: 14px;
+      align-items: center;
+      padding: 16px 18px;
+      color: var(--ink);
+      list-style: none;
+      cursor: pointer;
+      transition: background .2s var(--ease), color .2s var(--ease);
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: "+";
+      position: static;
+      transform: none;
+      justify-self: end;
+      color: var(--blue);
+      font-size: 1.3rem;
+      line-height: 1;
+    }
+
+    details[open] summary::after {
+      content: "-";
+    }
+
+    #research summary > .date {
+      color: var(--muted);
+      font-size: .88em;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 1.15;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    #research summary > .date br {
+      display: none;
+    }
+
+    #research summary > .date::before {
+      content: none;
+    }
+
+    #research summary > .date::after {
+      content: none;
+    }
+
+    details p {
+      margin: 0;
+      padding: 0 18px 18px;
+      max-width: none;
+    }
+
+    details p + p {
+      padding-top: 4px;
+    }
+
+    .carousel {
+      width: min(var(--max), calc(100% - clamp(28px, 6vw, 96px)));
+      max-width: none;
+      margin: 20px auto 0;
+      padding: 0;
+      overflow: visible;
+      margin-bottom: 18px;
+    }
+
+    .viewport {
+      padding: 30px 64px 64px;
+      margin: -30px -64px -64px;
+    }
+
+    .slide {
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--panel-solid);
+      box-shadow: 0 24px 68px rgba(0,0,0,.28);
+    }
+
+    .carousel .nav-btn {
+      width: 56px;
+      height: 56px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--ink);
+      font-size: 0;
+      box-shadow: none;
+      text-shadow: 0 2px 16px rgba(0,0,0,.34);
+      transition: transform .2s var(--ease), color .2s var(--ease), text-shadow .2s var(--ease);
+    }
+
+    .carousel .nav-btn::before {
+      display: block;
+      width: 100%;
+      font-size: 3.8rem;
+      line-height: 1;
+      text-align: center;
+      transform: translateY(-4px);
+    }
+
+    .carousel .nav-btn.left::before {
+      content: "‹";
+    }
+
+    .carousel .nav-btn.right::before {
+      content: "›";
+    }
+
+    .carousel .nav-btn:hover,
+    .carousel .nav-btn:focus-visible {
+      color: var(--orange);
+      text-shadow: 0 2px 18px color-mix(in srgb, var(--orange), transparent 30%);
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    .footer {
+      margin-top: clamp(28px, 3vw, 36px);
+      padding: 32px 20px;
+      border-top: 0;
+      border-radius: 0;
+      background: transparent;
+      color: var(--muted);
+      text-shadow: none;
+      font-weight: 650;
+      letter-spacing: 0;
+    }
+
+    #modeToggle {
+      right: 18px;
+      bottom: 18px;
+      min-height: 44px;
+      border: 1px solid var(--line-strong);
+      background: var(--panel);
+      color: var(--ink);
+      box-shadow: 0 18px 50px rgba(0,0,0,.24);
+    }
+
+    @media (min-width: 761px) {
+      .site-hero {
+        min-height: auto;
+        padding-bottom: clamp(18px, 3vw, 36px);
+      }
+
+      .hero-grid {
+        margin-top: clamp(34px, 6vh, 72px);
+      }
+
+      main.page {
+        padding-top: clamp(18px, 2.5vw, 34px);
+      }
+
+      section {
+        font-size: 1.08rem;
+      }
+
+      section p {
+        font-size: 1.06rem;
+      }
+
+      #honors h3 {
+        font-size: .95rem;
+        letter-spacing: .14em;
+        margin-top: 30px;
+      }
+
+      #research summary > .date {
+        justify-self: end;
+        margin-right: 4px;
+      }
+    }
+
+    @supports (animation-timeline: view()) {
+      section {
+        animation: section-focus both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 48%;
+      }
+
+      @keyframes section-focus {
+        from { opacity: .62; filter: blur(3px); transform: translateY(14px); }
+        to { opacity: 1; filter: blur(0); transform: translateY(0); }
+      }
+    }
+
+    body.section-focus-ready section {
+      animation: none;
+      transition: opacity .34s var(--ease), filter .34s var(--ease), transform .34s var(--ease);
+    }
+
+    body.section-focus-ready section.is-entry-soft {
+      opacity: .62;
+      filter: blur(3px);
+      transform: translateY(14px);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .001ms !important;
+      }
+    }
+
+    @media (max-width: 1000px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .field-panel {
+        min-height: 420px;
+      }
+
+    }
+
+    @media (max-width: 760px) {
+      html,
+      body {
+        overflow-x: hidden;
+      }
+
+      .site-hero {
+        min-height: auto;
+        padding: 12px 12px 28px 28px;
+      }
+
+      .topbar {
+        position: relative;
+        top: 0;
+        grid-template-columns: auto minmax(0, 1fr);
+        border-radius: 18px;
+        gap: 8px;
+        padding: 8px;
+        overflow: hidden;
+        box-shadow: none;
+      }
+
+      .site-hero {
+        box-shadow: none;
+      }
+
+      .brand-mark {
+        width: 34px;
+        height: 34px;
+      }
+
+      .nav-links {
+        grid-column: auto;
+        order: initial;
+        justify-content: flex-start;
+        gap: 6px;
+        overflow-x: auto;
+        contain: paint;
+        padding: 8px 2px 14px;
+        margin: -4px 0 -10px;
+        scrollbar-width: none;
+      }
+
+      .nav-links::-webkit-scrollbar {
+        display: none;
+      }
+
+      .nav-links a {
+        flex: 0 0 auto;
+        min-height: 34px;
+        padding: 0 9px !important;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+      }
+
+      .nav-cta {
+        display: none !important;
+      }
+
+      .hero-grid {
+        margin-top: 42px;
+        gap: 26px;
+      }
+
+      .hero-copy h1 {
+        font-size: clamp(4.2rem, 23vw, 7rem);
+      }
+
+      .hero-lede {
+        margin-top: 20px;
+      }
+
+      .hero-actions {
+        flex-wrap: nowrap;
+        gap: 7px;
+      }
+
+      .contact-chip,
+      .contact-chip:visited {
+        min-height: 42px;
+        padding: 0 10px;
+        gap: 6px;
+        font-size: clamp(.74rem, 3.5vw, .96rem);
+      }
+
+      .contact-chip svg {
+        width: 15px;
+        height: 15px;
+      }
+
+      .hero-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .stat {
+        min-height: 82px;
+      }
+
+      .field-panel {
+        min-height: 560px;
+        margin-bottom: 18px;
+        gap: 22px;
+        padding: 28px 18px 32px;
+      }
+
+      .black-hole-art {
+        width: min(96%, 360px);
+      }
+
+      .portrait-frame {
+        width: min(80%, 275px);
+      }
+
+      .field-note {
+        max-width: 240px;
+        font-size: .86rem;
+      }
+
+      main.page {
+        width: auto;
+        margin-left: 28px;
+        margin-right: 12px;
+      }
+
+      .carousel {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .viewport {
+        padding: 32px 0 54px;
+        margin: 0;
+        overflow: hidden;
+        contain: none;
+      }
+
+      .carousel {
+        contain: none;
+        overflow: visible;
+        margin-bottom: 0;
+        padding: 0;
+      }
+
+      .carousel .nav-btn {
+        width: 42px;
+        height: 42px;
+      }
+
+      .carousel .nav-btn.left {
+        left: -2px;
+      }
+
+      .carousel .nav-btn.right {
+        right: -2px;
+      }
+
+      .carousel .nav-btn::before {
+        font-size: 3rem;
+      }
+
+      main.page {
+        padding-top: 28px;
+      }
+
+      #news {
+        max-height: 360px;
+      }
+
+      .section-rail {
+        top: max(16px, env(safe-area-inset-top));
+        bottom: max(16px, env(safe-area-inset-bottom));
+        left: 2px;
+      }
+
+      .section-rail a,
+      .section-rail a:visited {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 0;
+        flex: 1 1 auto;
+        padding: 3px 0;
+        font-size: clamp(.55rem, 1.8vw, .68rem);
+        letter-spacing: .075em;
+        color: color-mix(in srgb, var(--ink), transparent 62%);
+      }
+
+      .section-rail a.is-active,
+      .section-rail a:hover,
+      .section-rail a:focus-visible {
+        color: var(--orange);
+        transform: translateX(2px);
+      }
+
+      .slide {
+        aspect-ratio: 4 / 3;
+        height: auto;
+        flex-basis: 84%;
+        transform: none;
+      }
+
+      .slide.active {
+        transform: none;
+      }
+
+      .slide img {
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        max-height: none;
+        object-fit: cover;
+      }
+
+      .slide {
+        box-shadow: 0 10px 22px rgba(0,0,0,.18);
+      }
+
+      #research summary > .date {
+        white-space: normal;
+      }
+
+      #research summary > .date br {
+        display: initial;
+      }
+
+      section {
+        padding: 20px 16px;
+      }
+
+      h2 {
+        font-size: clamp(1.58rem, 9vw, 2.25rem);
+      }
+
+      .li-row,
+      ul li:has(> .date),
+      ul li:has(> .arxivNum),
+      ul li:has(> .planned),
+      .talks-sublist > li > .row {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      ul li > .date,
+      ul li > .arxivNum,
+      ul li > .planned,
+      .talks-sublist .date,
+      .li-row > .date,
+      .li-row > .planned {
+        grid-column: 1;
+        justify-self: start;
+        text-align: left;
+        white-space: normal;
+      }
+
+      #modeToggle .label {
+        display: none;
+      }
+    }
   </style>
 </head>
-<body class="light-mode">
+<body>
 
-<header>
-  <div class="header-info">
-    <div class="name-row">
-      <div class="avatar" aria-label="Headshot">
-        <img src="images/degen_headshot-min.JPG" alt="Samuel Degen headshot" onerror="this.style.display='none'" />
+<header class="site-hero" id="top">
+  <nav class="topbar" aria-label="Primary navigation">
+    <a class="brand-mark" href="#top" aria-label="Samuel Degen home">
+      <img src="images/favicon/physics_characters_circle.png" alt="" />
+    </a>
+    <div class="nav-links">
+      <a href="#summary">About</a>
+      <a href="#news">News</a>
+      <a href="#education">Education</a>
+      <a href="#publications">Publications</a>
+      <a href="#honors">Honors</a>
+      <a href="#research">Research</a>
+      <a href="#talks">Talks</a>
+      <a href="#meetings">Meetings</a>
+      <a href="#service">Service</a>
+    </div>
+  </nav>
+
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">Theoretical physics · UCLA</p>
+      <h1>Samuel <span>Degen</span></h1>
+      <p class="hero-lede">I study how effective field theory, quantum many-body methods, and scattering amplitudes connect fundamental theory with experimentally relevant systems, from gravitational waves to ultracold atoms.</p>
+      <div class="hero-actions">
+        <a class="contact-chip" href="mailto:degen@ucla.edu" aria-label="Email Samuel Degen">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 6h18v12H3z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 7l9 6 9-6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+          Email
+        </a>
+        <a class="contact-chip" href="https://linkedin.com/in/samuel-degen" target="_blank" rel="noopener" aria-label="Open LinkedIn profile in a new tab">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 10v7" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="7.5" r="1" fill="currentColor"/><path d="M12 17v-4a3 3 0 016 0v4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+          LinkedIn
+        </a>
+        <a class="contact-chip" href="Samuel_Degen_CV.pdf" download aria-label="Download CV as PDF">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 11l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M4 19h16" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+          Download CV
+        </a>
       </div>
-      <div class="text-col">
-        <h1>Samuel Degen</h1>
-        <p><strong>Department of Physics, UCLA</strong><br>Los Angeles, CA 90024, USA</p>
-        <div class="btn-row">
-          <a class="download-btn" href="mailto:degen@ucla.edu" aria-label="Email Samuel Degen">
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 6h18v12H3z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 7l9 6 9-6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
-            Email
-          </a>
-          <a class="download-btn" href="https://linkedin.com/in/samuel-degen" target="_blank" rel="noopener" aria-label="Open LinkedIn profile in a new tab">
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 10v7" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="7.5" r="1" fill="currentColor"/><path d="M12 17v-4a3 3 0 016 0v4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
-            LinkedIn
-          </a>
-          <a class="download-btn" href="Samuel_Degen_CV.pdf" download aria-label="Download CV as PDF">
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 11l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M4 19h16" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
-            Download CV
-          </a>
+      <div class="hero-stats" aria-label="Portfolio highlights">
+        <div class="stat">
+          <span class="stat-label">National scholarship</span>
+          <strong>2026 Goldwater Scholar</strong>
+          <span class="stat-desc">Selected for outstanding potential for a research career in science.</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Research award</span>
+          <strong>APS Steven Chu Award, 1st</strong>
+          <span class="stat-desc">Best undergraduate research at the APS Far West Section meeting.</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">International research</span>
+          <strong>FUTI Global Leadership Award</strong>
+          <span class="stat-desc">Fully funded research at the University of Tokyo.</span>
         </div>
       </div>
     </div>
+
+    <div class="field-panel" aria-label="Research portrait and physics motifs">
+      <div class="black-hole-art" aria-hidden="true">
+        <span style="--r:1"></span>
+        <span style="--r:2"></span>
+        <span style="--r:3"></span>
+        <span style="--r:4"></span>
+      </div>
+      <div class="portrait-frame">
+        <img src="images/degen_headshot-min.JPG" alt="Samuel Degen headshot" onerror="this.style.display='none'" />
+      </div>
+      <p class="field-note"><strong>Department of Physics, UCLA</strong>Los Angeles, CA 90024, USA</p>
+    </div>
   </div>
-  <nav>
-    <a href="#education">Education</a>
-    <a href="#honors">Honors & Awards</a>
-    <a href="#research">Research</a>
-    <a href="#talks">Talks</a>
-    <a href="#meetings">Meetings</a>
-    <a href="#service">Service</a>
-  </nav>
+
+  <div class="scroll-cue" aria-hidden="true">Scroll for research portfolio</div>
 </header>
+
+<aside class="section-rail" aria-label="Section shortcuts">
+  <a href="#top">Home</a>
+  <a href="#summary">About</a>
+  <a href="#news">News</a>
+  <a href="#education">Education</a>
+  <a href="#publications">Publications</a>
+  <a href="#honors">Honors</a>
+  <a href="#research">Research</a>
+  <a href="#talks">Talks</a>
+  <a href="#meetings">Meetings</a>
+  <a href="#service">Service</a>
+</aside>
 
 <main class="page">
   <section id="summary">
@@ -677,22 +1958,22 @@ ul li > .planned::after  { content: "]"; }
   <section id="research">
     <h2>Research Experience</h2>
     <details>
-      <summary><strong>University of Tokyo — H. Liang Nuclear Theory Group</strong> <span class="date">(2025 – present)</span></summary>
+      <summary><strong>University of Tokyo — H. Liang Nuclear Theory Group</strong> <span class="date">2025 – <br>present</span></summary>
       <p style="text-align: justify; text-indent: 2em;">A deep microscopic understanding of quantum many-body theories would revolutionize many fields from nucleosynthesis and reactor design to neutron-star physics and ultracold atom experiments. Density Functional Theory (DFT) is the only approach applicable across nearly the entire nuclear chart, making its derivation from first principles a hot topic in recent years. Modern theoretical tools such as the Functional Renormalization Group (FRG) have enabled a first-principles formulation of DFT, known as the FRG-DFT. Though applied to 2D and 3D electrons with Coulomb interactions, a theoretical benchmark and connection to experiment remain missing. We address this gap by applying FRG-DFT to the exactly solvable Gaudin-Yang model: a strongly coupled 1D Fermi gas experimentally realizable with ultracold atoms. We derive the exact infinite hierarchy of coupled flow equations for the ground state energy, and explicit spin dependence enables extension to the spin-unsaturated electron gas. We truncate the hierarchy to compare our first-principles equation of state calculation to perturbation theory, competing methods, and the exact solution. Our results establish a clear theoretical benchmark for FRG-DFT and lay foundation for its extension to realistic higher-dimensional many-body systems.</p>
       <p><em>Supported by UTRIP 2025 and FUTI Global Leadership Award. Associated publication: <a href="https://arxiv.org/abs/2605.31112">2605.31112</a></em></p>
     </details>
     <details>
-      <summary><strong>UCLA — Z. Bern &amp; M. Solon Scattering Amplitudes Group</strong> <span class="date">(2025 – present)</span></summary>
+      <summary><strong>UCLA — Z. Bern &amp; M. Solon Scattering Amplitudes Group</strong> <span class="date">2025 – <br>present</span></summary>
       <p style="text-align: justify; text-indent: 2em;">This project develops a new field-theoretic framework to understand how black holes interact with their surrounding environment, such as gas or dark matter, and how these interactions leave imprints on gravitational wave signals. Inspired by methods from gravitational self-force and tidal effective field theory, it aims to model the drag forces experienced by black holes as they move through a medium and predict how these effects could be detected with next-generation observatories. This approach is exciting because it could offer new ways to probe dark matter experimentally or shed new light on the process of jet quenching in QCD, potentially linking similar gravitational, particle, and astrophysical phenomena through a common theoretical language.</p>
       <p><em>Supported by Mani L. Bhaumik Institute for Theoretical Physics Summer 2025 Research Fellowship and 2025 - 2026 UCLA URSP.</em></p>
     </details>
     <details>
-      <summary><strong>UCLA — E.P. Alves Plasma Theory Group</strong> <span class="date">(2024 – 2025)</span></summary>
+      <summary><strong>UCLA — E.P. Alves Plasma Theory Group</strong> <span class="date">2024 – <br>2025</span></summary>
       <p style="text-align: justify; text-indent: 2em;">Developed novel ML-based methods for studying time-dependent particle acceleration in relativistic astrophysical jets. My work resolves longstanding limitations of standard models by combining analytic theory and machine learning to uniquely solve ill-posed problems for the first time. Demonstrated that simple energy-dependent models are insufficient to explain the observed nonthermal particle spectrum and that these novel ML methods can be generalized to solve a large class of ill-posed problems—uniquely identifying physical solutions from an infinite family of solutions that perfectly reconstruct the data. Presented results at an international plasma physics conference, where my contributed oral talk initiated discussions toward new collaborations and research directions.</p>
       <p><em>Supported by UCLA Physics Summer 2024 Research Fellowship.</em></p>
     </details>
     <details>
-      <summary><strong>UCLA — B.C. Regan Condensed Matter Group</strong> <span class="date">(2024)</span></summary>
+      <summary><strong>UCLA — B.C. Regan Condensed Matter Group</strong> <span class="date">2024</span></summary>
       <p>Pedagogical contributions in proving the Feynman Checkerboard at a level suitable for undergraduates, illuminating an accessible way to teach propagators.</p>
     </details>
   </section>
@@ -961,7 +2242,7 @@ ul li > .planned::after  { content: "]"; }
 
 </main>
 
-<div class="footer">© 2026 Samuel Degen — Last updated June 2026</div>
+<div class="footer">© 2026 Samuel Degen</div>
 
 <button id="modeToggle" aria-label="Toggle dark/light mode"></button>
 
@@ -1006,6 +2287,92 @@ ul li > .planned::after  { content: "]"; }
     updateModeToggle();
   });
 
+  const railLinks = Array.from(document.querySelectorAll('.section-rail a'));
+  const railTargets = railLinks
+    .map(link => {
+      const id = link.getAttribute('href')?.slice(1);
+      return id ? { link, section: document.getElementById(id) } : null;
+    })
+    .filter(item => item && item.section);
+  const focusSections = Array.from(document.querySelectorAll('main.page > section'));
+
+  function setActiveRailLink(id){
+    railLinks.forEach(link => link.classList.toggle('is-active', link.getAttribute('href') === '#' + id));
+  }
+
+  function updateActiveRailFromViewport(){
+    if (!railTargets.length) return;
+    const focusLine = window.innerHeight * 0.38;
+    let current = railTargets[0];
+    let nearestDistance = Infinity;
+
+    railTargets.forEach(target => {
+      const rect = target.section.getBoundingClientRect();
+      if (rect.top <= focusLine && rect.bottom >= focusLine) {
+        current = target;
+        nearestDistance = 0;
+        return;
+      }
+
+      const distance = Math.abs(rect.top - focusLine);
+      if (distance < nearestDistance) {
+        nearestDistance = distance;
+        current = target;
+      }
+    });
+
+    setActiveRailLink(current.section.id);
+  }
+
+  function syncHashTarget(){
+    const id = window.location.hash.slice(1);
+    if (!id) {
+      updateActiveRailFromViewport();
+      return;
+    }
+
+    const target = document.getElementById(id);
+    if (target) {
+      const targetTop = target.getBoundingClientRect().top + window.scrollY;
+      const scrollMargin = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+      const nextScrollTop = Math.max(0, targetTop - scrollMargin);
+      const scroller = document.scrollingElement || document.documentElement;
+      scroller.scrollTop = nextScrollTop;
+      document.documentElement.scrollTop = nextScrollTop;
+      document.body.scrollTop = nextScrollTop;
+      window.scrollTo({ top: nextScrollTop, left: 0, behavior: 'auto' });
+      setActiveRailLink(id);
+    }
+    requestAnimationFrame(updateActiveRailFromViewport);
+  }
+
+  function updateSectionFocus(){
+    document.body.classList.add('section-focus-ready');
+    const softStart = window.innerHeight * 0.72;
+    focusSections.forEach(section => {
+      const top = section.getBoundingClientRect().top;
+      section.classList.toggle('is-entry-soft', top > softStart);
+    });
+  }
+
+  window.addEventListener('scroll', updateActiveRailFromViewport, { passive: true });
+  window.addEventListener('scroll', updateSectionFocus, { passive: true });
+  window.addEventListener('resize', updateActiveRailFromViewport);
+  window.addEventListener('resize', updateSectionFocus);
+  window.addEventListener('hashchange', syncHashTarget);
+  window.addEventListener('load', syncHashTarget);
+  window.addEventListener('load', updateSectionFocus);
+  window.addEventListener('pageshow', syncHashTarget);
+  window.addEventListener('pageshow', updateSectionFocus);
+  syncHashTarget();
+  updateSectionFocus();
+  requestAnimationFrame(syncHashTarget);
+  requestAnimationFrame(updateSectionFocus);
+  setTimeout(syncHashTarget, 120);
+  setTimeout(syncHashTarget, 480);
+  setTimeout(updateSectionFocus, 120);
+  setTimeout(updateSectionFocus, 480);
+
   // === Center-peek carousel using triplicate set for seamless wrap ===
   const viewport = document.getElementById('carouselViewport');
   const track = document.getElementById('carouselTrack');
@@ -1031,27 +2398,12 @@ ul li > .planned::after  { content: "]"; }
     const s = slides[i];
     const styles = getComputedStyle(viewport);
     const padL = parseFloat(styles.paddingLeft) || 0;
-    const padR = parseFloat(styles.paddingRight) || 0;
     const vpW = viewport.clientWidth;
     const sW = s.clientWidth;
     const left = s.offsetLeft;
 
-    // Identify the first/last real slide within the middle block
-    const isFirstReal = (i === N);
-    const isLastReal  = (i === 2*N - 1);
-
-    // Edge behavior: hide outside neighbor at the ends
-    if (isFirstReal) {
-      // Align left edge of the first real slide with the viewport's left padding
-      return left - padL;
-    }
-    if (isLastReal) {
-      // Align right edge of the last real slide with the viewport's right padding
-      return (left + sW) - (vpW - padR);
-    }
-
-    // Middle slides: perfectly center so both left and right previews are visible
-    return left - (vpW - sW)/2;
+    // Center every active slide; cloned neighbors provide the seamless edge previews.
+    return left + padL - (vpW - sW)/2;
   }
   function setActive(i){ slides.forEach((el, k) => el.classList.toggle('active', k === i)); }
   function centerOn(i, animate=true){
